@@ -208,6 +208,7 @@ def Enter():
 """
 
 def ModesControlPanel():
+    global mcp
     rootA.destroy();
     destroy_r();
     mcp = Tk() 
@@ -269,7 +270,9 @@ def AOO_Mode_Modifier():
     global URL_Input
     global AtrAmp_Input
     global APW_Input
+    global AOOModeWindow
     
+    mcp.destroy()
     AOOModeWindow = Tk()
     AOOModeWindow.title("AOO Mode Modifier")
     AOOModeWindow.geometry("600x500")
@@ -319,6 +322,7 @@ def AOO_Mode_Modifier():
 
 
 def Check_Set_AOO():
+    AOOModeWindow.destroy()
     AOO_Check = Tk()
     AOO_Check.title("System Message")
     
