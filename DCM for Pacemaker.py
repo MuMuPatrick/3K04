@@ -265,9 +265,155 @@ def OFF_Mode_Modifier():
     instruction.pack();
 
 def AOO_Mode_Modifier():
+    global LRL_Input
+    global URL_Input
+    global AtrAmp_Input
+    global APW_Input
+    
+    AOOModeWindow = Tk()
+    AOOModeWindow.title("AOO Mode Modifier")
+    AOOModeWindow.geometry("600x500")
+
+    pvL = Label(AOOModeWindow, text = "Programable Variables", fg = 'blue')
+    pvL.grid(row=1,column=0)
+
+    vL = Label(AOOModeWindow, text = "Value",fg='blue')
+    vL.grid(row=1,column=1)
+
+    cvL = Label(AOOModeWindow, text = "Input Value",fg='blue')
+    cvL.grid(row=1,column=2)
+
+    rtL = Label(AOOModeWindow, text = "Tolerance",fg='blue')
+    rtL.grid(row=1,column=3)
+
+    LRL = Label(AOOModeWindow, text = "Lower Rate Limit")
+    LRL.grid(row=2,column=0)
+    LRL_Input = Entry(AOOModeWindow)
+    LRL_Input.grid(row=2,column=1)
+    LRL_T = Label(AOOModeWindow, text = "+/-8 ms")
+    LRL_T.grid(row=2,column=2)
+    
+    URL = Label(AOOModeWindow, text = "Lower Rate Limit")
+    URL.grid(row=3,column=0)
+    URL_Input = Entry(AOOModeWindow)
+    URL_Input.grid(row=3,column=1)
+    URL_T =Label(AOOModeWindow, text = "+/-8 ms")
+    URL_T.grid(row=3,column=2)
+
+    AtrAmp = Label(AOOModeWindow, text = "Atrial Amplitude")
+    AtrAmp.grid(row=4,column=0)
+    AtrAmp_Input = Entry(AOOModeWindow)
+    AtrAmp_Input.grid(row=4,column=1)
+    AtrAmp_T = Label(AOOModeWindow, text = "+/-12%")
+    AtrAmp_T.grid(row=4,column=2)
+
+    APW = Label(AOOModeWindow, text = "Atrial Pulse Width")
+    APW.grid(row=5,column=0)
+    APW_Input = Entry(AOOModeWindow)
+    APW_Input.grid(row=5,column=1)
+    APW_T = Label(AOOModeWindow, text = "0.2 ms")
+    APW_T.grid(row=5,column=2)
+
+    Set_button = Button(AOOModeWindow, text = "Set Mode", command=Check_Set_AOO)
+    Set_button.grid(row=11,column=1)
 
 
-def VOO_Mode_Modifier():
+def Check_Set_AOO():
+    AOO_Check = Tk()
+    AOO_Check.title("System Message")
+    
+    Display = Label(AOO_Check, text = "The Parameter List")
+    Display.grid(row=0,column=0)
+
+    LRL_Val = Check_Change_LRL(int(LRL_Input.get()))
+    URL_Val = Check_Change_URL(int(URL_Input.get()),int(LRL_Input.get()))
+    AtrAmp_Val = Check_Change_VA_Amp(float(AtrAmp_Input.get()))
+    APW_Val = Check_Change_PW(float(APW_Input.get()))
+
+    LRL = Label(AOO_Check, text = "Lower Rate Limit: ")
+    LRL.grid(row=1,column=0)
+    LRL_Ouput = Label(AOO_Check, text=LRL_Val)
+    LRL_Ouput.grid(row=1,column=1)
+
+    URL = Label(AOO_Check, text = "Upper Rate Limit: ")
+    URL.grid(row=2,column=0)
+    URL_Ouput = Label(AOO_Check, text=URL_Val)
+    URL_Ouput.grid(row=2,column=1)
+
+    AtrAmp = Label(AOO_Check, text = "Atrial Amplitude: ")
+    AtrAmp.grid(row=3,column=0)
+    AtrAmp_Ouput = Label(AOO_Check, text=AtrAmp_Val)
+    AtrAmp_Ouput.grid(row=3,column=1)
+
+    APW = Label(AOO_Check, text = "Atrial Pulse Width")
+    APW.grid(row=4,column=0)
+    APW_Ouput = Label(AOO_Check, text=APW_Val)
+    APW_Ouput.grid(row=4,column=1)
+
+    if (LRL_Val == -1) | (URL_Val == -1) | (AtrAmp_Val == -1) | (APW_Val == -1):
+        Set_Button = Button(AOO_Check, text = "Go Back", command = AOO_Mode_Modifier)
+        Set_Button.grid(row=5,column=0)
+    else:
+        Set_Button = Button(AOO_Check, text = "Store", command = Store_Data)
+        Set_Button.grid(row=5,column=0)
+
+def Store_Data():
+    print("Successful Stored!")
+
+def Check_Change_LRL(LRL):
+    if (LRL>=30) & (LRL<50) :
+        if ((LRL-30)%5) ==0 :
+            return LRL
+        elif ((LRL-30)%5) <3 :
+            return LRL-(LRL-30)%5
+        else :
+            return LRL+(5-(LRL-30)%5)
+    elif (LRL>=50) & (LRL<90) :
+        return LRL
+    elif (LRL>=90) & (LRL<=175) :
+        if ((LRL-90)%5) ==0 :
+            return LRL
+        elif ((LRL-90)%5) <3 :
+            return LRL-(LRL-90)%5
+        else :
+            return LRL+(5-(LRL-90)%5)
+    else :
+        return -1
+
+def Check_Change_URL(URL,LRL):
+    if (URL < LRL):
+        return -1
+    if (URL>=50) & (URL<=175):
+        if (URL-50)%5 ==0 :
+            return URL
+        elif (URL-50)%5 <3 :
+            return URL-(URL-50)%5
+        else :
+            return URL+(5-(URL-50)%5)
+    else:
+        return -1
+
+def Check_Change_VA_Amp(Amp):
+    if (Amp == 0): return Amp
+    if (Amp>=0.5) & (Amp<=3.2):
+        temp = round((Amp-3.5)/0.1)
+        return round(3.5+temp*0.1,1)
+    elif (Amp>=3.5) & (Amp<=7.0):
+        temp = round((Amp-3.5)/0.5)
+        return round(3.5+temp*0.5,1)
+    else:
+        return -1
+
+def Check_Change_PW(PW):
+    if (PW == 0.05): return PW
+    elif (PW>=0.1) & (PW<=1.9) :
+        temp = round((Amp-0.1)/0.1)
+        return round(0.1+temp*0.1,1)
+    else:
+        return -1
+
+
+#def VOO_Mode_Modifier():
 
 
 def VVI_Mode_Modifier():
