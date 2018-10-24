@@ -359,6 +359,101 @@ def Check_Set_AOO():
         Set_Button = Button(AOO_Check, text = "Store", command = Store_Data)
         Set_Button.grid(row=5,column=0)
 
+         
+def VOO_Mode_Modifier():
+    global LRL_Input
+    global URL_Input
+    global VtrAmp_Input
+    global VPW_Input
+    global VOOModeWindow
+    VOOModeWindow = Tk()
+    VOOModeWindow.title("VOO Mode Modifier")
+    VOOModeWindow.geometry("600x500")
+    pvL = Label(VOOModeWindow, text = "Programable Variables", fg = 'blue')
+    pvL.grid(row=1,column=0)
+
+    vL = Label(VOOModeWindow, text = "Value",fg='blue')
+    vL.grid(row=1,column=1)
+
+    cvL = Label(VOOModeWindow, text = "Input Value",fg='blue')
+    cvL.grid(row=1,column=2)
+
+    rtL = Label(VOOModeWindow, text = "Tolerance",fg='blue')
+    rtL.grid(row=1,column=3)
+
+    LRL = Label(VOOModeWindow, text = "Lower Rate Limit")
+    LRL.grid(row=2,column=0)
+    LRL_Input = Entry(VOOModeWindow)
+    LRL_Input.grid(row=2,column=1)
+    LRL_T = Label(VOOModeWindow, text = "+/-8 ms")
+    LRL_T.grid(row=2,column=2)
+    
+    URL = Label(VOOModeWindow, text = "Lower Rate Limit")
+    URL.grid(row=3,column=0)
+    URL_Input = Entry(VOOModeWindow)
+    URL_Input.grid(row=3,column=1)
+    URL_T =Label(VOOModeWindow, text = "+/-8 ms")
+    URL_T.grid(row=3,column=2)
+
+    VtrAmp = Label(VOOModeWindow, text = "Ventricular Amplitude")
+    VtrAmp.grid(row=4,column=0)
+    VtrAmp_Input = Entry(VOOModeWindow)
+    VtrAmp_Input.grid(row=4,column=1)
+    VtrAmp_T = Label(VOOModeWindow, text = "+/-12%")
+    VtrAmp_T.grid(row=4,column=2)
+
+    VPW = Label(VOOModeWindow, text = "Ventricular Pulse Width")
+    VPW.grid(row=5,column=0)
+    VPW_Input = Entry(VOOModeWindow)
+    VPW_Input.grid(row=5,column=1)
+    VPW_T = Label(VOOModeWindow, text = "0.2 ms")
+    VPW_T.grid(row=5,column=2)
+
+    Set_button = Button(VOOModeWindow, text = "Set Mode", command=Check_Set_VOO)
+    Set_button.grid(row=11,column=1)
+
+def Check_Set_VOO():
+    
+    VOO_Check = Tk()
+    VOO_Check.title("System Message")
+    
+    Display = Label(VOO_Check, text = "The Parameter List")
+    Display.grid(row=0,column=0)
+
+    LRL_Val = Check_Change_LRL(int(LRL_Input.get()))
+    URL_Val = Check_Change_URL(int(URL_Input.get()),int(LRL_Input.get()))
+    VtrAmp_Val = Check_Change_VA_Amp(float(VtrAmp_Input.get()))
+    VPW_Val = Check_Change_PW(float(VPW_Input.get()))
+
+    LRL = Label(VOO_Check, text = "Lower Rate Limit: ")
+    LRL.grid(row=1,column=0)
+    LRL_Ouput = Label(VOO_Check, text=LRL_Val)
+    LRL_Ouput.grid(row=1,column=1)
+
+    URL = Label(VOO_Check, text = "Upper Rate Limit: ")
+    URL.grid(row=2,column=0)
+    URL_Ouput = Label(VOO_Check, text=URL_Val)
+    URL_Ouput.grid(row=2,column=1)
+
+    VtrAmp = Label(VOO_Check, text = "Ventricular Amplitude: ")
+    VtrAmp.grid(row=3,column=0)
+    VtrAmp_Ouput = Label(VOO_Check, text=VtrAmp_Val)
+    VtrAmp_Ouput.grid(row=3,column=1)
+
+    VPW = Label(VOO_Check, text = "Ventricular Pulse Width")
+    VPW.grid(row=4,column=0)
+    VPW_Ouput = Label(VOO_Check, text=VPW_Val)
+    VPW_Ouput.grid(row=4,column=1)
+
+    if (LRL_Val == -1) | (URL_Val == -1) | (VtrAmp_Val == -1) | (VPW_Val == -1):
+        Set_Button = Button(VOO_Check, text = "Go Back", command = VOO_Mode_Modifier)
+        Set_Button.grid(row=5,column=0)
+    else:
+        Set_Button = Button(VOO_Check, text = "Store", command = Store_Data)
+        Set_Button.grid(row=5,column=0)
+         
+         
+         
 def Store_Data():
     print("Successful Stored!")
 
