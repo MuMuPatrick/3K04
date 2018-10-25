@@ -10,6 +10,7 @@ import os
 
 
 creds = 'UserInfo.txt' # text file to store the User information
+creds2 = 'Parameter List' # text file to store the Parameter List   
 
 
 
@@ -81,19 +82,28 @@ def Signup():
  
 def FSSignup():
     if os.path.isfile(creds): #Check the existence of the file. If file exists, we need to append the file with new user's information, else we create a new user information file
-        f=open(creds, 'a')
-        f.write('\n')
-        f.write(nameE.get()) 
-        f.write('\n')
-        f.write(pwordE.get())
-        f.write('\n\n')
-        f.close()
+        f=open(creds, 'r')
+        data = f.readlines() 
+        num = len(data)
+        print(num)
+        f.close
+        if (num >= 20):
+            nk = Tk()
+            instruction = Label(nk,text = "Maximum Number of Users !!!!")
+            instruction.grid(row=0)
+        else:
+            file2=open(creds,'a')
+            file2.write(nameE.get()) 
+            file2.write('\n')
+            file2.write(pwordE.get())
+            file2.write('\n')
+            file2.close()
     else:
         f=open(creds, 'w')
         f.write(nameE.get()) 
         f.write('\n')
         f.write(pwordE.get())
-        f.write('\n\n')
+        f.write('\n')
         f.close() 
     roots.destroy() # After transmittion is finished, destroy the Signup Screen 
     Login()
@@ -295,7 +305,7 @@ def AOO_Mode_Modifier():
     LRL_T = Label(AOOModeWindow, text = "+/-8 ms")
     LRL_T.grid(row=2,column=2)
     
-    URL = Label(AOOModeWindow, text = "Lower Rate Limit")
+    URL = Label(AOOModeWindow, text = "Upper Rate Limit")
     URL.grid(row=3,column=0)
     URL_Input = Entry(AOOModeWindow)
     URL_Input.grid(row=3,column=1)
@@ -388,7 +398,7 @@ def VOO_Mode_Modifier():
     LRL_T = Label(VOOModeWindow, text = "+/-8 ms")
     LRL_T.grid(row=2,column=2)
     
-    URL = Label(VOOModeWindow, text = "Lower Rate Limit")
+    URL = Label(VOOModeWindow, text = "Upper Rate Limit")
     URL.grid(row=3,column=0)
     URL_Input = Entry(VOOModeWindow)
     URL_Input.grid(row=3,column=1)
@@ -458,6 +468,7 @@ def Store_Data():
     print("Successful Stored!")
 
 def Check_Change_LRL(LRL):
+    print(LRL)
     if (LRL>=30) & (LRL<50) :
         if ((LRL-30)%5) ==0 :
             return LRL
