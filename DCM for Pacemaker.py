@@ -77,9 +77,6 @@ def Signup():
 @Objects:f -> The information file
 """
 
-
-
- 
 def FSSignup():
     if os.path.isfile(creds): #Check the existence of the file. If file exists, we need to append the file with new user's information, else we create a new user information file
         f=open(creds, 'r')
@@ -119,8 +116,6 @@ def FSSignup():
         loginB -> Button to execute Login command
         NewUser -> Button to execute Signup command
 """
-
-
 
 def Login():
     global nameEL
@@ -271,6 +266,10 @@ def ModesControlPanel():
     di_Button = Button(mcp, text='Check\nDevice Info',command=checkDeviceInfo) 
     di_Button.grid(row=11,column=2)
 
+       
+"""
+@brief: Check the connection of the pacemaker. This function will be used in further assignments
+"""
 
 def checkConnection():
     connected=True
@@ -281,6 +280,10 @@ def checkConnection():
         connectedL = Label(con, text="             device connected",fg='blue',anchor='center')
         connectedL.grid(row=1,columnspan=1)
 
+
+"""
+@brief: Check the Device Code. This  function will be used in further assignments
+"""
 
 def checkDeviceInfo():
     connected=True
@@ -302,6 +305,17 @@ def OFF_Mode_Modifier():
     OMM.title("System Message");
     instruction  = Label(OMM,text = "\n This Mode is currently not accessible.")
     instruction.pack();
+         
+"""
+@brief: AOO Mode Control Panel, user can change the value of the parameter for the AOO mode
+@object: AOOModeWindow -> The AOO Mode Modifier Screen
+         pvl,vl,cvl,rtl -> The Colume Label, stand for Programmable Variable, Value, Tolerance respectively
+         LRL,URL,AtrAmp,APW -> The row label, stand for Lower Rate Limit, Upper Rate Limit, Atrial Amplitude, Atrial Pulse Width respectively
+         (LRL,URL,AtrAmp,APW)_Input -> The Entry box for Lower Rate Limit, Upper Rate Limit, Atrial Amplitude, Atrial Pulse Width respectively
+         (LRL,URL,AtrAmp,APW)_T -> The Tolerance for Lower Rate Limit, Upper Rate Limit, Atrial Amplitude, Atrial Pulse Width respectively
+         Set_button -> Set the parameter
+@parameter: (LRL,URL,AtrAmp,APW)_Input -> The Result (in String) for Lower Rate Limit, Upper Rate Limit, Atrial Amplitude, Atrial Pulse Width respectively
+"""
 
 def AOO_Mode_Modifier():
     global LRL_Input
@@ -320,11 +334,8 @@ def AOO_Mode_Modifier():
     vL = Label(AOOModeWindow, text = "Value",fg='blue')
     vL.grid(row=1,column=1)
 
-    cvL = Label(AOOModeWindow, text = "Input Value",fg='blue')
-    cvL.grid(row=1,column=2)
-
     rtL = Label(AOOModeWindow, text = "Tolerance",fg='blue')
-    rtL.grid(row=1,column=3)
+    rtL.grid(row=1,column=2)
 
     LRL = Label(AOOModeWindow, text = "Lower Rate Limit")
     LRL.grid(row=2,column=0)
@@ -356,7 +367,16 @@ def AOO_Mode_Modifier():
 
     Set_button = Button(AOOModeWindow, text = "Set Mode", command=Check_Set_AOO)
     Set_button.grid(row=11,column=1)
-
+         
+"""
+@Brief: Check the Value of the paramater in AOO Mode that set by User and give out the right result of the parameters
+@Object: AOO_Check -> The Screen that display the value of parameter that will sent to the pacemaker
+         Display -> "The Parameter List" Label
+         (LRL,URL,AtrAmp,APW)_Val -> The values of the parameter check and revised by the system, stand for Lower Rate Limit, Upper Rate Limit, Atrial Amplitude, Atrial Pulse Width respectively
+         LRL,URL,AtrAmp,APW -> The Labels for variables, stand for Lower Rate Limit, Upper Rate Limit, Atrial Amplitude, Atrial Pulse Width respectively
+         (LRL,URL,AtrAmp,APW)_Output -> Display the result of the variables, stand for Lower Rate Limit, Upper Rate Limit, Atrial Amplitude, Atrial Pulse Width respectively
+         Set_button -> Button that lead the User to further procedure
+"""
 
 def Check_Set_AOO():
     AOO_Check = Tk()
@@ -390,6 +410,7 @@ def Check_Set_AOO():
     APW_Ouput = Label(AOO_Check, text=APW_Val)
     APW_Ouput.grid(row=4,column=1)
 
+    # If one of these parameters is invalid (Checked by Check_Change functions), the Button will lead the User to Modifier Screen. Else, it will lead the user to store the results
     if (LRL_Val == -1) | (URL_Val == -1) | (AtrAmp_Val == -1) | (APW_Val == -1):
         Set_Button = Button(AOO_Check, text = "Go Back", command = AOO_Mode_Modifier)
         Set_Button.grid(row=5,column=0)
@@ -397,6 +418,16 @@ def Check_Set_AOO():
         Set_Button = Button(AOO_Check, text = "Store", command = Store_Data)
         Set_Button.grid(row=5,column=0)
 
+"""
+@brief: VOO Mode Control Panel, user can change the value of the parameter for the VOO mode
+@object: AOOModeWindow -> The VOO Mode Modifier Screen
+         pvl,vl,cvl,rtl -> The Colume Label, stand for Programmable Variable, Value, Tolerance respectively
+         LRL,URL,VtrAmp,VPW -> The row label, stand for Lower Rate Limit, Upper Rate Limit, Ventricular Amplitude, Ventricular Pulse Width respectively
+         (LRL,URL,VtrAmp,VPW)_Input -> The Entry box for Lower Rate Limit, Upper Rate Limit, Ventricular Amplitude, Ventricular Pulse Width respectively
+         (LRL,URL,VtrAmp,VPW)_T -> The Tolerance for Lower Rate Limit, Upper Rate Limit, Ventricular Amplitude, Ventricular Pulse Width respectively
+         Set_button -> Set the parameter
+@parameter: (LRL,URL,VtrAmp,VPW)_Input -> The Result (in String) for Lower Rate Limit, Upper Rate Limit, Ventricular Amplitude, Ventricular Pulse Width respectively
+"""
          
 def VOO_Mode_Modifier():
     global LRL_Input
@@ -413,11 +444,8 @@ def VOO_Mode_Modifier():
     vL = Label(VOOModeWindow, text = "Value",fg='blue')
     vL.grid(row=1,column=1)
 
-    cvL = Label(VOOModeWindow, text = "Input Value",fg='blue')
-    cvL.grid(row=1,column=2)
-
     rtL = Label(VOOModeWindow, text = "Tolerance",fg='blue')
-    rtL.grid(row=1,column=3)
+    rtL.grid(row=1,column=2)
 
     LRL = Label(VOOModeWindow, text = "Lower Rate Limit")
     LRL.grid(row=2,column=0)
@@ -449,6 +477,16 @@ def VOO_Mode_Modifier():
 
     Set_button = Button(VOOModeWindow, text = "Set Mode", command=Check_Set_VOO)
     Set_button.grid(row=11,column=1)
+
+"""
+@Brief: Check the Value of the paramater in VOO Mode that set by User and give out the right result of the parameters
+@Object: VOO_Check -> The Screen that display the value of parameter that will sent to the pacemaker
+         Display -> "The Parameter List" Label
+         (LRL,URL,VtrAmp,VPW)_Val -> The values of the parameter check and revised by the system, stand for Lower Rate Limit, Upper Rate Limit, Ventricular Amplitude, Ventricular Pulse Width respectively
+         LRL,URL,VtrAmp,VPW -> The Labels for variables, stand for Lower Rate Limit, Upper Rate Limit, Ventricular Amplitude, Ventricular Pulse Width respectively
+         (LRL,URL,VtrAmp,VPW)_Output -> Display the result of the variables, stand for Lower Rate Limit, Upper Rate Limit, Ventricular Amplitude, Ventricular Pulse Width respectively
+         Set_button -> Button that lead the User to further procedure
+"""
 
 def Check_Set_VOO():
     
@@ -483,6 +521,8 @@ def Check_Set_VOO():
     VPW_Ouput = Label(VOO_Check, text=VPW_Val)
     VPW_Ouput.grid(row=4,column=1)
 
+     # If one of these parameters is invalid (Checked by Check_Change functions), the Button will lead the User to Modifier Screen. Else, it will lead the user to store the results
+         
     if (LRL_Val == -1) | (URL_Val == -1) | (VtrAmp_Val == -1) | (VPW_Val == -1):
         Set_Button = Button(VOO_Check, text = "Go Back", command = VOO_Mode_Modifier)
         Set_Button.grid(row=5,column=0)
