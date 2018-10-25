@@ -85,7 +85,7 @@ def FSSignup():
         f=open(creds, 'r')
         data = f.readlines() 
         num = len(data)
-        print(num)
+      
         f.close
         if (num >= 20):
             nk = Tk()
