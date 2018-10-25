@@ -223,7 +223,7 @@ def ModesControlPanel():
     destroy_r();
     mcp = Tk() 
     mcp.title('Modes')
-    mcp.geometry("150x200")
+    mcp.geometry("180x290")
     OFF_Button = Button(mcp, text='OFF', command=OFF_Mode_Modifier) 
     OFF_Button.grid(row=1,column=1)
     AOO_Button = Button(mcp, text='AOO', command=AOO_Mode_Modifier) 
@@ -262,6 +262,34 @@ def ModesControlPanel():
     VOOR_Button.grid(row=6,column=3)
     VVIR_Button = Button(mcp, text='VVIR', command=OFF_Mode_Modifier) 
     VVIR_Button.grid(row=7,column=1)
+    spL = Label(mcp, text = "")
+    spL.grid(row=8,columnspan=1,column=2)
+    cc_Button = Button(mcp, text='Check\nConnection',command=checkConnection) 
+    cc_Button.grid(row=9,column=2)
+    sp2L = Label(mcp, text = "")
+    sp2L.grid(row=10,columnspan=1,column=2)
+    di_Button = Button(mcp, text='Check\nDevice Info',command=checkDeviceInfo) 
+    di_Button.grid(row=11,column=2)
+
+
+def checkConnection():
+    connected=True
+    if(connected):
+        con = Tk();
+        con.title("Connection Status")
+        con.geometry("220x30")
+        connectedL = Label(con, text="             device connected",fg='blue',anchor='center')
+        connectedL.grid(row=1,columnspan=1)
+
+
+def checkDeviceInfo():
+    connected=True
+    if(connected):
+        di = Tk();
+        di.title("Device")
+        di.geometry("100x30")
+        diL = Label(di, text="      device 1",fg='blue',anchor='center')
+        diL.grid(row=1,columnspan=1)
 
 """
 @brief: System Message Screen shows this Mode is currently not accessible.
