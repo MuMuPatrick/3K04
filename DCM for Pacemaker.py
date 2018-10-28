@@ -529,11 +529,21 @@ def Check_Set_VOO():
     else:
         Set_Button = Button(VOO_Check, text = "Store", command = Store_Data)
         Set_Button.grid(row=5,column=0)
-         
-         
+
+   
+"""
+@brief:Store the value of the parameter in a specific file. This object will be used in further assignment
+"""
          
 def Store_Data():
     print("Successful Stored!")
+
+"""
+@brief: Check the correctness of the value of LRL. If this is a invaild input, system will change the value into the nearest vaild value.
+@para: LRL -> the value of LRL read from the User's input
+@Note: The system will find out which region the value is in and change the value based on the increments given in the manual
+       If the input in not in these three regions, a -1 will be returned.
+"""
 
 def Check_Change_LRL(LRL):
     print(LRL)
@@ -556,6 +566,15 @@ def Check_Change_LRL(LRL):
     else :
         return -1
 
+"""
+@brief: Check the correctness of the value of URL. If this is a invaild input, system will change the value into the nearest vaild value.
+@para: URL -> the value of URL read from the User's input
+       LRL -> the value of LRL read from the User's input
+@Note: The system will find out which region the value is in and change the value based on the increments given in the manual
+       If the input in not in the regions, a -1 will be returned.
+       If URL is small than the LRL (It cannot happen in real life), a -1 will also be returned
+"""
+
 def Check_Change_URL(URL,LRL):
     if (URL < LRL):
         return -1
@@ -569,6 +588,13 @@ def Check_Change_URL(URL,LRL):
     else:
         return -1
 
+"""
+@brief: Check the correctness of the value of amplitude. If this is a invaild input, system will change the value into the biggest vaild value that smaller than the input
+@para: Amp -> the value of amplitude read from the User's input
+@Note: The system will find out which region the value is in and change the value based on the increments given in the manual
+       If the input in not in these regions, a -1 will be returned.
+"""
+
 def Check_Change_VA_Amp(Amp):
     if (Amp == 0): return Amp
     if (Amp>=0.5) & (Amp<=3.2):
@@ -579,6 +605,14 @@ def Check_Change_VA_Amp(Amp):
         return round(3.5+temp*0.5,1)
     else:
         return -1
+
+"""
+@brief: Check the correctness of the value of pulse width. If this is a invaild input, system will change the value into the biggest vaild value that smaller than the input
+@para: PW -> the value of pulse width read from the User's input
+@Note: The system will find out which region the value is in and change the value based on the increments given in the manual
+       If the input in not in these regions, a -1 will be returned.
+"""
+
 
 def Check_Change_PW(PW):
     if (PW == 0.05): return PW
