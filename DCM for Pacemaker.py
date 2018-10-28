@@ -95,6 +95,7 @@ def FSSignup():
             file2.write(pwordE.get())
             file2.write('\n')
             file2.close()
+            Login()
     else:
         f=open(creds, 'w')
         f.write(nameE.get()) 
