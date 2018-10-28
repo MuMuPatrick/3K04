@@ -546,7 +546,6 @@ def Store_Data():
 """
 
 def Check_Change_LRL(LRL):
-    print(LRL)
     if (LRL>=30) & (LRL<50) :
         if ((LRL-30)%5) ==0 :
             return LRL
