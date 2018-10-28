@@ -218,7 +218,7 @@ def ModesControlPanel():
     destroy_r();
     mcp = Tk() 
     mcp.title('Modes')
-    mcp.geometry("180x290")
+    mcp.geometry("200x350")
     OFF_Button = Button(mcp, text='OFF', command=OFF_Mode_Modifier) 
     OFF_Button.grid(row=1,column=1)
     AOO_Button = Button(mcp, text='AOO', command=AOO_Mode_Modifier) 
