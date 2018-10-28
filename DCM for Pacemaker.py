@@ -617,7 +617,7 @@ def Check_Change_VA_Amp(Amp):
 def Check_Change_PW(PW):
     if (PW == 0.05): return PW
     elif (PW>=0.1) & (PW<=1.9) :
-        temp = round((Amp-0.1)/0.1)
+        temp = round((PW-0.1)/0.1)
         return round(0.1+temp*0.1,1)
     else:
         return -1
