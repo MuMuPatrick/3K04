@@ -249,7 +249,7 @@ def ModesControlPanel():
     DOO_Button.grid(row=2,column=2)
     DDD_Button = Button(mcp, text='DDD', command=OFF_Mode_Modifier) 
     DDD_Button.grid(row=2,column=3)
-    AAI_Button = Button(mcp, text='AAI', command=OFF_Mode_Modifier) 
+    AAI_Button = Button(mcp, text='AAI', command=AAI_Mode_Modifier) 
     AAI_Button.grid(row=3,column=1)
     VDD_Button = Button(mcp, text='VDD', command=OFF_Mode_Modifier) 
     VDD_Button.grid(row=3,column=2)
