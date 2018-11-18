@@ -22,12 +22,6 @@ def OFF_Mode_Modifier():
 """
 
 def AOO_Mode_Modifier():
-    global LRL_Input
-    global URL_Input
-    global AtrAmp_Input
-    global APW_Input
-    global AOOModeWindow
-    
     AOOModeWindow = Tk()
     AOOModeWindow.title("AOO Mode Modifier")
     AOOModeWindow.geometry("600x500")
@@ -134,11 +128,6 @@ def Check_Set_AOO():
 """
          
 def VOO_Mode_Modifier():
-    global LRL_Input
-    global URL_Input
-    global VtrAmp_Input
-    global VPW_Input
-    global VOOModeWindow
     VOOModeWindow = Tk()
     VOOModeWindow.title("VOO Mode Modifier")
     VOOModeWindow.geometry("600x500")
@@ -241,109 +230,4 @@ def Check_Set_VOO():
 def Store_Data():
     print("Successful Stored!")
 
-#def VOO_Mode_Modifier():
 
-
-def VVI_Mode_Modifier():
-    global p_pacingState
-    p_pacingState = 'Permanent'
-    global p_pacingMode
-    p_pacingMode = 'VVI'
-    global p_hysteresis
-    p_hysteresis = False
-    global p_hysteresisInterval
-    p_hysteresisInterval = 300
-    global p_lowrateInterval
-    p_lowrateInterval = 1000
-    global p_vPaceAmp
-    p_vPaceAmp = 3500
-    global p_vPaceWidth
-    p_vPaceWidth = 0.4
-    global p_VRP
-    p_VRP = 320
-    global pp
-    VVIModeWindow = Tk()
-    VVIModeWindow.title("VVI Mode Modifier")
-    VVIModeWindow.geometry("600x500")
-    pvL = Label(VVIModeWindow, text = "Programable Variables",fg='blue')
-    pvL.grid(row=1,column=0)
-    vL = Label(VVIModeWindow, text = "Value",fg='blue')
-    vL.grid(row=1,column=1)
-    cvL = Label(VVIModeWindow, text = "Current Value",fg='blue')
-    cvL.grid(row=1,column=2)
-    rtL = Label(VVIModeWindow, text = "Range/Tolerance",fg='blue')
-    rtL.grid(row=1,column=3)
-    psL = Label(VVIModeWindow, text = "Pacing State")
-    psL.grid(row=2,column=0)
-    psE = Entry(VVIModeWindow)
-    psE.grid(row=2,column=1)
-    cvpsL = Label(VVIModeWindow, text = str(p_pacingState))
-    cvpsL.grid(row=2,column=2)
-    rtpsL = Label(VVIModeWindow, text = "NA")
-    rtpsL.grid(row=2,column=3)
-    pmL = Label(VVIModeWindow, text = "Pacing Mode")
-    pmL.grid(row=3,column=0)
-    pmE = Entry(VVIModeWindow)
-    pmE.grid(row=3,column=1)
-    cvpmL = Label(VVIModeWindow, text = str(p_pacingMode))
-    cvpmL.grid(row=3,column=2)
-    rtpmL = Label(VVIModeWindow, text = "NA")
-    rtpmL.grid(row=3,column=3)
-    hsL = Label(VVIModeWindow, text = "Hysteresis Status")
-    hsL.grid(row=4,column=0)
-    hsE = Entry(VVIModeWindow)
-    hsE.grid(row=4,column=1)
-    cvhsL = Label(VVIModeWindow, text = "NA")
-    cvhsL.grid(row=4,column=2)
-    rthsL= Label(VVIModeWindow, text = "True / False")
-    rthsL.grid(row=4,column=3)
-    hiL = Label(VVIModeWindow, text = "Hysteresis Interval")
-    hiL.grid(row=5,column=0)
-    hiE = Entry(VVIModeWindow)
-    hiE.grid(row=5,column=1)
-    cvhiL = Label(VVIModeWindow, text = str(p_hysteresisInterval))
-    cvhiL.grid(row=5,column=2)
-    rthiL = Label(VVIModeWindow, text = "200~500, +-4")
-    rthiL.grid(row=5,column=3)
-    lriL = Label(VVIModeWindow, text = "Low Rate Interval")
-    lriL.grid(row=6,column=0)
-    lriE = Entry(VVIModeWindow)
-    lriE.grid(row=6,column=1)
-    cvlriL = Label(VVIModeWindow, text = str(p_lowrateInterval))
-    cvlriL.grid(row=6,column=2)
-    rtlriL = Label(VVIModeWindow, text = "343~2000, +-8")
-    rtlriL.grid(row=6,column=3)
-    vpaL = Label(VVIModeWindow, text = "Ventricular Pace Amp")
-    vpaL.grid(row=7,column=0)
-    vpaE = Entry(VVIModeWindow)
-    vpaE.grid(row=7,column=1)
-    cvvpaL = vpaL = Label(VVIModeWindow, text = str(p_vPaceAmp))
-    cvvpaL.grid(row=7,column=2)
-    rtvpaL = Label(VVIModeWindow, text = "500~7000, +-12%")
-    rtvpaL.grid(row=7,column=3)
-    vpwL = Label(VVIModeWindow, text = "Ventricular Pace Width")
-    vpwL.grid(row=8,column=0)
-    vpwE = Entry(VVIModeWindow)
-    vpwE.grid(row=8,column=1)
-    cvvpwL = vpwL = Label(VVIModeWindow, text = str(p_vPaceWidth))
-    cvvpwL.grid(row=8,column=2)
-    rtvpwL = Label(VVIModeWindow, text = "0.1~1.9, 0.2")
-    rtvpwL.grid(row=8,column=3)
-    vrpL = Label(VVIModeWindow, text = "Ventricular Refrac Period")
-    vrpL.grid(row=9,column=0)
-    vrpE = Entry(VVIModeWindow)
-    vrpE.grid(row=9,column=1)
-    cvvrpL = Label(VVIModeWindow, text = str(p_VRP))
-    cvvrpL.grid(row=9,column=2)
-    rtvvrpL = Label(VVIModeWindow, text = "150~500, +-8")
-    rtvvrpL.grid(row=9,column=3)
-    spL = Label(VVIModeWindow)
-    spL.grid(row=10,columnspan=2)
-    Set_Button = Button(VVIModeWindow, text='Set Mode', command=Set_VVI_Values)
-    Set_Button.grid(row=11,column=1)
-
-def Set_VVI_Values():
-     
-    #do it in the future
-    
-    return 1
