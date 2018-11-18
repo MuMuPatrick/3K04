@@ -1,5 +1,3 @@
-from tkinter import *
-
 """
 @brief: System Message Screen shows this Mode is currently not accessible.
 @objectL OMM -> OFF_Mode_Modifier Screen
