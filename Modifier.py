@@ -1,6 +1,22 @@
 from tkinter import *
 from Check_Para import *
 
+global LRL_Input
+global URL_Input
+global AtrAmp_Input
+global APW_Input
+global VtrAmp_Input
+global VPW_Input
+global VSEN_Input
+global AtrSen_Input
+global ARP_Input
+global VRP_Input
+global PVARP_Input
+global Hysteresis_Input
+global HYS_Input
+global RSM_Input
+global RateSmoothing_Input
+
 """
 @brief: System Message Screen shows this Mode is currently not accessible.
 @objectL OMM -> OFF_Mode_Modifier Screen
@@ -25,6 +41,11 @@ def OFF_Mode_Modifier():
 """
 
 def AOO_Mode_Modifier():
+    global LRL_Input
+    global URL_Input
+    global AtrAmp_Input
+    global APW_Input    
+
     AOOModeWindow = Tk()
     AOOModeWindow.title("AOO Mode Modifier")
     AOOModeWindow.geometry("600x500")
@@ -131,6 +152,11 @@ def Check_Set_AOO():
 """
          
 def VOO_Mode_Modifier():
+    global LRL_Input
+    global URL_Input
+    global VtrAmp_Input
+    global VPW_Input
+
     VOOModeWindow = Tk()
     VOOModeWindow.title("VOO Mode Modifier")
     VOOModeWindow.geometry("600x500")
@@ -236,7 +262,7 @@ def AAI_Mode_Modifier():
     global PVARP_Input
     global Hysteresis_Input
     global RateSmoothing_Input
-
+    
     AAIModeWindow = Tk()
     AAIModeWindow.title("AAI Mode Modifier")
     AAIModeWindow.geometry("600x500")
@@ -382,6 +408,151 @@ def Check_Set_AAI():
     else:
         Set_Button = Button(AAI_Check, text = "Store", command = Store_Data)
         Set_Button.grid(row=10,column=0)
+
+def VVI_Mode_Modifier():
+    global LRL_Input
+    global URL_Input
+    global VtrAmp_Input
+    global VPW_Input
+    global VSEN_Input
+    global VRP_Input
+    global HYS_Input
+    global RSM_Input
+
+    VVIModeWindow = Tk()
+    VVIModeWindow.title("VVI Mode Modifier")
+    VVIModeWindow.geometry("600x500")
+
+    pvL = Label(VVIModeWindow, text = "Programable Variables", fg = 'blue')
+    pvL.grid(row=1,column=0)
+
+    vL = Label(VVIModeWindow, text = "Value",fg='blue')
+    vL.grid(row=1,column=1)
+
+    rtL = Label(VVIModeWindow, text = "Tolerance",fg='blue')
+    rtL.grid(row=1,column=2)
+
+    LRL = Label(VVIModeWindow, text = "Lower Rate Limit")
+    LRL.grid(row=2,column=0)
+    LRL_Input = Entry(VVIModeWindow)
+    LRL_Input.grid(row=2,column=1)
+    LRL_T = Label(VVIModeWindow, text = "+/-8 ms")
+    LRL_T.grid(row=2,column=2)
+    
+    URL = Label(VVIModeWindow, text = "Upper Rate Limit")
+    URL.grid(row=3,column=0)
+    URL_Input = Entry(VVIModeWindow)
+    URL_Input.grid(row=3,column=1)
+    URL_T =Label(VVIModeWindow, text = "+/-8 ms")
+    URL_T.grid(row=3,column=2)
+
+    VenAmp = Label(VVIModeWindow, text = "Ventricular Amplitude")
+    VenAmp.grid(row=4,column=0)
+    VtrAmp_Input = Entry(VVIModeWindow)
+    VtrAmp_Input.grid(row=4,column=1)
+    VenAmp_T = Label(VVIModeWindow, text = "+/-12%")
+    VenAmp_T.grid(row=4,column=2)
+
+    VPW = Label(VVIModeWindow, text = "Ventricular Pulse Width")
+    VPW.grid(row=5,column=0)
+    VPW_Input = Entry(VVIModeWindow)
+    VPW_Input.grid(row=5,column=1)
+    VPW_T = Label(VVIModeWindow, text = "0.2 ms")
+    VPW_T.grid(row=5,column=2)
+
+    VSEN = Label(VVIModeWindow, text = "Ventricular Sensitivity")
+    VSEN.grid(row=6,column=0)
+    VSEN_Input = Entry(VVIModeWindow)
+    VSEN_Input.grid(row=6,column=1)
+    VSEN_T = Label(VVIModeWindow, text = "+/-20%")
+    VSEN_T.grid(row=6,column=2)
+
+    VRP = Label(VVIModeWindow, text = "Ventricular Refractory Period")
+    VRP.grid(row=7,column=0)
+    VRP_Input = Entry(VVIModeWindow)
+    VRP_Input.grid(row=7,column=1)
+    VRP_T = Label(VVIModeWindow, text = "+/-8 ms")
+    VRP_T.grid(row=7,column=2)
+
+    HYS = Label(VVIModeWindow, text = "Hysteresis Rate Limit")
+    HYS.grid(row=8,column=0)
+    HYS_Input = Entry(VVIModeWindow)
+    HYS_Input.grid(row=8,column=1)
+    HYS_T = Label(VVIModeWindow, text = "+/-8 ms")
+    HYS_T.grid(row=8,column=2)
+
+    RSM = Label(VVIModeWindow, text = "Rate Smoothing")
+    RSM.grid(row=9,column=0)
+    RSM_Input = Entry(VVIModeWindow)
+    RSM_Input.grid(row=9,column=1)
+    RSM_T = Label(VVIModeWindow, text = "+/-1%")
+    RSM_T.grid(row=9,column=2)
+
+    Set_button = Button(VVIModeWindow, text = "Set Mode", command=Check_Set_VVI)
+    Set_button.grid(row=11,column=1)
+
+def Check_Set_VVI():
+    VVI_Check=Tk()
+    VVI_Check.title("System Message")
+
+    Display = Label(VVI_Check, text = "The Parameter List")
+    Display.grid(row=0,column=0)
+
+    LRL_Val = Check_Change_LRL(int(LRL_Input.get()))
+    URL_Val = Check_Change_URL(int(URL_Input.get()),int(LRL_Input.get()))
+    VEN_Val = Check_Change_VA_Amp(float(VtrAmp_Input.get()))
+    VPW_Val = Check_Change_PW(float(VPW_Input.get()))
+    VSEN_Val = Check_Change_AVSen(float(VSEN_Input.get()))
+    VRP_Val = Check_Change_AVRP(int(VRP_Input.get()))
+    HYS_Val = Check_Change_LRL(int(HYS_Input.get())) #same choices as LRL
+    RSM_Val = Check_Change_RS(int(RSM_Input.get()))
+    
+    LRL = Label(VVI_Check, text = "Lower Rate Limit: ")
+    LRL.grid(row=1,column=0)
+    LRL_Ouput = Label(VVI_Check, text=LRL_Val)
+    LRL_Ouput.grid(row=1,column=1)
+
+    URL = Label(VVI_Check, text = "Upper Rate Limit: ")
+    URL.grid(row=2,column=0)
+    URL_Ouput = Label(VVI_Check, text=URL_Val)
+    URL_Ouput.grid(row=2,column=1)
+
+    VEN = Label(VVI_Check, text = "Ventricular Amplitude Limit: ")
+    VEN.grid(row=3,column=0)
+    VEN_Output = Label(VVI_Check, text=VEN_Val)
+    VEN_Output.grid(row=3,column=1)
+
+    VPW = Label(VVI_Check, text = "Ventricular Pulse Width Limit: ")
+    VPW.grid(row=4,column=0)
+    VPW_Output = Label(VVI_Check, text=VPW_Val)
+    VPW_Output.grid(row=4,column=1)
+
+    VSEN = Label(VVI_Check, text = "Ventricular Sensitivity Limit: ")
+    VSEN.grid(row=5,column=0)
+    VSEN_Output = Label(VVI_Check, text=VSEN_Val)
+    VSEN_Output.grid(row=5,column=1)
+    
+    VRP = Label(VVI_Check, text = "Ventricular Refractory Period Limit: ")
+    VRP.grid(row=6,column=0)
+    VRP_Output = Label(VVI_Check, text=VRP_Val)
+    VRP_Output.grid(row=6,column=1)
+
+    HYS = Label(VVI_Check, text = "Hysteresis Rate Limit: ")
+    HYS.grid(row=7,column=0)
+    HYS_Output = Label(VVI_Check, text=HYS_Val)
+    HYS_Output.grid(row=7,column=1)
+
+    RSM = Label(VVI_Check, text = "Ventricular Amplitude Limit: ")
+    RSM.grid(row=8,column=0)
+    RSM_Output = Label(VVI_Check, text=RSM_Val)
+    RSM_Output.grid(row=8,column=1)
+
+    if (LRL_Val == -1) | (URL_Val == -1) | (VEN_Val == -1) | (VPW_Val == -1) | (VSEN_Val == -1) | (VRP_Val == -1) | (HYS_Val == -1) | (RSM_Val == -1):
+        Set_Button = Button(VVI_Check, text = "Go Back", command = VVI_Mode_Modifier)
+        Set_Button.grid(row=9,column=0)
+    else:
+        Set_Button = Button(VVI_Check, text = "Store", command = Store_Data)
+        Set_Button.grid(row=9,column=0)  
    
 """
 @brief:Store the value of the parameter in a specific file. This object will be used in further assignment
