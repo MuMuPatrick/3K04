@@ -222,6 +222,163 @@ def Check_Set_VOO():
         Set_Button = Button(VOO_Check, text = "Store", command = Store_Data)
         Set_Button.grid(row=5,column=0)
 
+         
+def AAI_Mode_Modifier():
+    global LRL_Input
+    global URL_Input
+    global AtrAmp_Input
+    global APW_Input
+    global AtrSen_Input
+    global ARP_Input
+    global PVARP_Input
+    global Hysteresis_Input
+    global RateSmoothing_Input
+
+    AAIModeWindow = Tk()
+    AAIModeWindow.title("AAI Mode Modifier")
+    AAIModeWindow.geometry("600x500")
+
+    pvL = Label(AAIModeWindow, text = "Programable Variables", fg = 'blue')
+    pvL.grid(row=1,column=0)
+    vL = Label(AAIModeWindow, text = "Value",fg='blue')
+    vL.grid(row=1,column=1)
+    rtL = Label(AAIModeWindow, text = "Tolerance",fg='blue')
+    rtL.grid(row=1,column=2)
+
+    LRL = Label(AAIModeWindow, text = "Lower Rate Limit")
+    LRL.grid(row=2,column=0)
+    LRL_Input = Entry(AAIModeWindow)
+    LRL_Input.grid(row=2,column=1)
+    LRL_T = Label(AAIModeWindow, text = "+/- 8 ms")
+    LRL_T.grid(row=2,column=2)
+    
+    URL = Label(AAIModeWindow, text = "Upper Rate Limit")
+    URL.grid(row=3,column=0)
+    URL_Input = Entry(AAIModeWindow)
+    URL_Input.grid(row=3,column=1)
+    URL_T =Label(AAIModeWindow, text = "+/- 8 ms")
+    URL_T.grid(row=3,column=2)
+
+    AtrAmp = Label(AAIModeWindow, text = "Atrial Amplitude")
+    AtrAmp.grid(row=4,column=0)
+    AtrAmp_Input = Entry(AAIModeWindow)
+    AtrAmp_Input.grid(row=4,column=1)
+    AtrAmp_T = Label(AAIModeWindow, text = "+/- 12%")
+    AtrAmp_T.grid(row=4,column=2)
+
+    APW = Label(AAIModeWindow, text = "Atrial Pulse Width")
+    APW.grid(row=5,column=0)
+    APW_Input = Entry(AAIModeWindow)
+    APW_Input.grid(row=5,column=1)
+    APW_T = Label(AAIModeWindow, text = "0.2 ms")
+    APW_T.grid(row=5,column=2)
+
+    AtrSen = Label(AAIModeWindow, text = "Atrial Sensitivity")
+    AtrSen.grid(row=6,column=0)
+    AtrSen_Input = Entry(AAIModeWindow)
+    AtrSen_Input.grid(row=6,column=1)
+    AtrSen_T = Label(AAIModeWindow, text = "+/- 2%")
+    AtrSen_T.grid(row=6,column=2)
+
+    ARP = Label(AAIModeWindow, text = "Atrial Refractory Period")
+    ARP.grid(row=7,column=0)
+    ARP_Input = Entry(AAIModeWindow)
+    ARP_Input.grid(row=7,column=1)
+    ARP_T = Label(AAIModeWindow, text = "+/- 8 ms")
+    ARP_T.grid(row=7,column=2)
+
+    PVARP = Label(AAIModeWindow, text = "PVARP")
+    PVARP.grid(row=8,column=0)
+    PVARP_Input = Entry(AAIModeWindow)
+    PVARP_Input.grid(row=8,column=1)
+    PVARP_T = Label(AAIModeWindow, text = "+/- 8 ms")
+    PVARP_T.grid(row=8,column=2)
+
+    Hysteresis = Label(AAIModeWindow, text = "Hysteresis")
+    Hysteresis.grid(row=9,column=0)
+    Hysteresis_Input = Entry(AAIModeWindow)
+    Hysteresis_Input.grid(row=9,column=1)
+    Hysteresis_T = Label(AAIModeWindow, text = "+/- 8 ms")
+    Hysteresis_T.grid(row=9,column=2)
+
+    RateSmoothing = Label(AAIModeWindow, text = "Rate Smoothing(%)")
+    RateSmoothing.grid(row=10,column=0)
+    RateSmoothing_Input = Entry(AAIModeWindow)
+    RateSmoothing_Input.grid(row=10,column=1)
+    RateSmoothing_T = Label(AAIModeWindow, text = "+/- 1%")
+    RateSmoothing_T.grid(row=10,column=2)
+
+    Set_button = Button(AAIModeWindow, text = "Set Mode", command=Check_Set_AAI)
+    Set_button.grid(row=16,column=1)
+
+def Check_Set_AAI():
+    AAI_Check = Tk()
+    AAI_Check.title("System Message")
+    
+    Display = Label(AAI_Check, text = "The Parameter List")
+    Display.grid(row=0,column=0)
+
+    LRL_Val = Check_Change_LRL(int(LRL_Input.get()))
+    URL_Val = Check_Change_URL(int(URL_Input.get()),int(LRL_Input.get()))
+    AtrAmp_Val = Check_Change_VA_Amp(float(AtrAmp_Input.get()))
+    APW_Val = Check_Change_PW(float(APW_Input.get()))
+    AtrSen_Val = Check_Change_AVSen(float(AtrSen_Input.get()))
+    ARP_Val = Check_Change_AVRP(int(ARP_Input.get()))
+    PVARP_Val = Check_Change_AVRP(int(PVARP_Input.get()))
+    Hysteresis_Val = LRL_Val
+    RateSmoothing_Val = Check_Change_RS(int(RateSmoothing_Input.get()))
+    
+    LRL = Label(AAI_Check, text = "Lower Rate Limit: ")
+    LRL.grid(row=1,column=0)
+    LRL_Ouput = Label(AAI_Check, text=LRL_Val)
+    LRL_Ouput.grid(row=1,column=1)
+
+    URL = Label(AAI_Check, text = "Upper Rate Limit: ")
+    URL.grid(row=2,column=0)
+    URL_Ouput = Label(AAI_Check, text=URL_Val)
+    URL_Ouput.grid(row=2,column=1)
+
+    AtrAmp = Label(AAI_Check, text = "Atrial Amplitude: ")
+    AtrAmp.grid(row=3,column=0)
+    AtrAmp_Ouput = Label(AAI_Check, text=AtrAmp_Val)
+    AtrAmp_Ouput.grid(row=3,column=1)
+
+    APW = Label(AAI_Check, text = "Atrial Pulse Width: ")
+    APW.grid(row=4,column=0)
+    APW_Ouput = Label(AAI_Check, text=APW_Val)
+    APW_Ouput.grid(row=4,column=1)
+
+    AtrSen = Label(AAI_Check, text = "Atrial Sensitivity: ")
+    AtrSen.grid(row=5,column=0)
+    AtrSen_Output = Label(AAI_Check, text=AtrSen_Val)
+    AtrSen_Output.grid(row=5,column=1)
+
+    ARP = Label(AAI_Check, text = "Atrial Refractory Period: ")
+    ARP.grid(row=6,column=0)
+    ARP_Output = Label(AAI_Check, text=ARP_Val)
+    ARP_Output.grid(row=6,column=1)
+
+    PVARP = Label(AAI_Check, text = "PVARP: ")
+    PVARP.grid(row=7,column=0)
+    PVARP_Output = Label(AAI_Check, text=PVARP_Val)
+    PVARP_Output.grid(row=7,column=1)
+    
+    Hys = Label(AAI_Check, text = "Hysteresis: ")
+    Hys.grid(row=8,column=0)
+    Hys_Output = Label(AAI_Check, text=Hysteresis_Val)
+    Hys_Output.grid(row=8,column=1)
+    
+    RS = Label(AAI_Check, text = "Rate Smoothing(%): ")
+    RS.grid(row=9,column=0)
+    RS_Output = Label(AAI_Check, text=RateSmoothing_Val)
+    RS_Output.grid(row=9,column=1)
+         
+    if (LRL_Val==-1) | (URL_Val==-1) | (AtrAmp_Val==-1) | (APW_Val==-1) | (AtrSen_Val==-1) | (ARP_Val==-1) | (PVARP_Val==-1) | (Hysteresis_Val==-1) | (RateSmoothing_Val==-1) :
+        Set_Button = Button(AAI_Check, text = "Go Back", command = AAI_Mode_Modifier)
+        Set_Button.grid(row=10,column=0)
+    else:
+        Set_Button = Button(AAI_Check, text = "Store", command = Store_Data)
+        Set_Button.grid(row=10,column=0)
    
 """
 @brief:Store the value of the parameter in a specific file. This object will be used in further assignment
