@@ -328,7 +328,7 @@ def Check_Set_AAI():
     AtrSen_Val = Check_Change_AVSen(float(AtrSen_Input.get()))
     ARP_Val = Check_Change_AVRP(int(ARP_Input.get()))
     PVARP_Val = Check_Change_AVRP(int(PVARP_Input.get()))
-    Hysteresis_Val = LRL_Val
+    Hysteresis_Val = Check_Change_LRL(int(Hysteresis_Input.get()))
     RateSmoothing_Val = Check_Change_RS(int(RateSmoothing_Input.get()))
     
     LRL = Label(AAI_Check, text = "Lower Rate Limit: ")
