@@ -5,8 +5,6 @@
 
 from tkinter import *
 
-from Check_Para import *
-
 from Modifier import *
 
 import os
