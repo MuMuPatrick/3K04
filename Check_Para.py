@@ -81,3 +81,32 @@ def Check_Change_PW(PW):
         return round(0.1+temp*0.1,1)
     else:
         return -1
+
+def Check_Change_AVSen(S):
+    if (S == 0.25): return S
+    if (S == 0.5): return S
+    if (S == 0.75): return S
+    elif (S>=1.0) & (S<=10.0):
+        temp = round((S-1.0)/0.5)
+        return round(1.0+temp*0.5,1)
+    else:
+        return -1
+
+def Check_Change_AVRP(RP):
+    if (RP>=150) & (RP<=500):
+        temp = round((RP-150)/10)
+        return round(150+temp*10,1)
+    else:
+        return -1
+
+def Check_Change_RS(RS):
+    if (RS==3):return RS
+    if (RS==6):return RS
+    if (RS==9):return RS
+    if (RS==12):return RS
+    if (RS==15):return RS
+    if (RS==18):return RS
+    if (RS==21):return RS
+    if (RS==25):return RS
+    else:
+        return -1
