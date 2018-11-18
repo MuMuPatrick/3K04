@@ -9,26 +9,24 @@ from Modifier import *
 
 import os
 
+creds = 'UserInfo.txt' # text file to store the User information
+creds2 = 'Parameter List' # text file to store the Parameter List   
+
 global LRL_Input
 global URL_Input
 global AtrAmp_Input
 global APW_Input
-
-
-global LRL_Input
-global URL_Input
 global VtrAmp_Input
 global VPW_Input
-
+global VSEN_Input
 global AtrSen_Input
 global ARP_Input
+global VRP_Input
 global PVARP_Input
 global Hysteresis_Input
+global HYS_Input
+global RSM_Input
 global RateSmoothing_Input
-
-creds = 'UserInfo.txt' # text file to store the User information
-creds2 = 'Parameter List' # text file to store the Parameter List   
-
 
 
 """
