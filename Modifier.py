@@ -1,3 +1,6 @@
+from tkinter import *
+from Check_Para import *
+
 """
 @brief: System Message Screen shows this Mode is currently not accessible.
 @objectL OMM -> OFF_Mode_Modifier Screen
