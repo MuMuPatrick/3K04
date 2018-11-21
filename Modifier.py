@@ -12,14 +12,12 @@ global AtrAmp_Input
 global APW_Input
 global VtrAmp_Input
 global VPW_Input
-global VSEN_Input
+global VtrSen_Input
 global AtrSen_Input
 global ARP_Input
 global VRP_Input
 global PVARP_Input
 global Hysteresis_Input
-global HYS_Input
-global RSM_Input
 global RateSmoothing_Input
 
 #Value that will sent to the Pacemaker
@@ -29,14 +27,12 @@ global AtrAmp_Val
 global APW_Val
 global VtrAmp_Val
 global VPW_Val
-global VSEN_Val
+global VtrSen_Val
 global AtrSen_Val
 global ARP_Val
 global VRP_Val
 global PVARP_Val
 global Hysteresis_Val
-global HYS_Val
-global RSM_Val
 global RateSmoothing_Val
 
 
@@ -243,6 +239,10 @@ def VOO_Mode_Modifier():
 """
 
 def Check_Set_VOO():
+    global LRL_Val
+    global URL_Val
+    global VtrAmp_Val
+    global VPW_Val
     
     VOO_Check = Tk()
     VOO_Check.title("System Message")
@@ -281,7 +281,7 @@ def Check_Set_VOO():
         Set_Button = Button(VOO_Check, text = "Go Back", command = VOO_Mode_Modifier)
         Set_Button.grid(row=5,column=0)
     else:
-        Set_Button = Button(VOO_Check, text = "Store", command = Store_Data)
+        Set_Button = Button(VOO_Check, text = "Store", command = Store_VOO)
         Set_Button.grid(row=5,column=0)
 
          
@@ -374,6 +374,16 @@ def AAI_Mode_Modifier():
     Set_button.grid(row=16,column=1)
 
 def Check_Set_AAI():
+    global LRL_Val
+    global URL_Val
+    global AtrAmp_Val
+    global APW_Val
+    global AtrSen_Val
+    global ARP_Val
+    global PVARP_Val
+    global Hysteresis_Val
+    global RateSmoothing_Val
+    
     AAI_Check = Tk()
     AAI_Check.title("System Message")
     
@@ -439,7 +449,7 @@ def Check_Set_AAI():
         Set_Button = Button(AAI_Check, text = "Go Back", command = AAI_Mode_Modifier)
         Set_Button.grid(row=10,column=0)
     else:
-        Set_Button = Button(AAI_Check, text = "Store", command = Store_Data)
+        Set_Button = Button(AAI_Check, text = "Store", command = Store_AAI)
         Set_Button.grid(row=10,column=0)
 
 def VVI_Mode_Modifier():
@@ -447,10 +457,10 @@ def VVI_Mode_Modifier():
     global URL_Input
     global VtrAmp_Input
     global VPW_Input
-    global VSEN_Input
+    global VtrSen_Input
     global VRP_Input
-    global HYS_Input
-    global RSM_Input
+    global Hysteresis_Input
+    global RateSmoothing_Input
 
     VVIModeWindow = Tk()
     VVIModeWindow.title("VVI Mode Modifier")
@@ -479,12 +489,12 @@ def VVI_Mode_Modifier():
     URL_T =Label(VVIModeWindow, text = "+/-8 ms")
     URL_T.grid(row=3,column=2)
 
-    VenAmp = Label(VVIModeWindow, text = "Ventricular Amplitude")
-    VenAmp.grid(row=4,column=0)
+    VtrAmp = Label(VVIModeWindow, text = "Ventricular Amplitude")
+    VtrAmp.grid(row=4,column=0)
     VtrAmp_Input = Entry(VVIModeWindow)
     VtrAmp_Input.grid(row=4,column=1)
-    VenAmp_T = Label(VVIModeWindow, text = "+/-12%")
-    VenAmp_T.grid(row=4,column=2)
+    VtrAmp_T = Label(VVIModeWindow, text = "+/-12%")
+    VtrAmp_T.grid(row=4,column=2)
 
     VPW = Label(VVIModeWindow, text = "Ventricular Pulse Width")
     VPW.grid(row=5,column=0)
@@ -493,12 +503,12 @@ def VVI_Mode_Modifier():
     VPW_T = Label(VVIModeWindow, text = "0.2 ms")
     VPW_T.grid(row=5,column=2)
 
-    VSEN = Label(VVIModeWindow, text = "Ventricular Sensitivity")
-    VSEN.grid(row=6,column=0)
-    VSEN_Input = Entry(VVIModeWindow)
-    VSEN_Input.grid(row=6,column=1)
-    VSEN_T = Label(VVIModeWindow, text = "+/-20%")
-    VSEN_T.grid(row=6,column=2)
+    VtrSen = Label(VVIModeWindow, text = "Ventricular Sensitivity")
+    VtrSen.grid(row=6,column=0)
+    VtrSen_Input = Entry(VVIModeWindow)
+    VtrSen_Input.grid(row=6,column=1)
+    VtrSen_T = Label(VVIModeWindow, text = "+/-20%")
+    VtrSen_T.grid(row=6,column=2)
 
     VRP = Label(VVIModeWindow, text = "Ventricular Refractory Period")
     VRP.grid(row=7,column=0)
@@ -507,17 +517,17 @@ def VVI_Mode_Modifier():
     VRP_T = Label(VVIModeWindow, text = "+/-8 ms")
     VRP_T.grid(row=7,column=2)
 
-    HYS = Label(VVIModeWindow, text = "Hysteresis Rate Limit")
+    HYS= Label(VVIModeWindow, text = "Hysteresis Rate Limit")
     HYS.grid(row=8,column=0)
-    HYS_Input = Entry(VVIModeWindow)
-    HYS_Input.grid(row=8,column=1)
+    Hysteresis_Input = Entry(VVIModeWindow)
+    Hysteresis_Input.grid(row=8,column=1)
     HYS_T = Label(VVIModeWindow, text = "+/-8 ms")
     HYS_T.grid(row=8,column=2)
 
     RSM = Label(VVIModeWindow, text = "Rate Smoothing")
     RSM.grid(row=9,column=0)
-    RSM_Input = Entry(VVIModeWindow)
-    RSM_Input.grid(row=9,column=1)
+    RateSmoothing_Input = Entry(VVIModeWindow)
+    RateSmoothing_Input.grid(row=9,column=1)
     RSM_T = Label(VVIModeWindow, text = "+/-1%")
     RSM_T.grid(row=9,column=2)
 
@@ -525,6 +535,14 @@ def VVI_Mode_Modifier():
     Set_button.grid(row=11,column=1)
 
 def Check_Set_VVI():
+    global LRL_Val
+    global URL_Val
+    global VtrAmp_Val
+    global VPW_Val
+    global VtrSen_Val
+    global VRP_Val
+    global Hysteresis_Val
+    global RateSmoothing_Val
     VVI_Check=Tk()
     VVI_Check.title("System Message")
 
@@ -533,12 +551,12 @@ def Check_Set_VVI():
 
     LRL_Val = Check_Change_LRL(int(LRL_Input.get()))
     URL_Val = Check_Change_URL(int(URL_Input.get()),int(LRL_Input.get()))
-    VEN_Val = Check_Change_VA_Amp(float(VtrAmp_Input.get()))
+    VtrAmp_Val = Check_Change_VA_Amp(float(VtrAmp_Input.get()))
     VPW_Val = Check_Change_PW(float(VPW_Input.get()))
-    VSEN_Val = Check_Change_AVSen(float(VSEN_Input.get()))
+    VtrSen_Val = Check_Change_AVSen(float(VtrSen_Input.get()))
     VRP_Val = Check_Change_AVRP(int(VRP_Input.get()))
-    HYS_Val = Check_Change_LRL(int(HYS_Input.get())) #same choices as LRL
-    RSM_Val = Check_Change_RS(int(RSM_Input.get()))
+    Hysteresis_Val = Check_Change_LRL(int(Hysteresis_Input.get())) #same choices as LRL
+    RateSmoothing_Val = Check_Change_RS(int(RateSmoothing_Input.get()))
     
     LRL = Label(VVI_Check, text = "Lower Rate Limit: ")
     LRL.grid(row=1,column=0)
@@ -552,7 +570,7 @@ def Check_Set_VVI():
 
     VEN = Label(VVI_Check, text = "Ventricular Amplitude Limit: ")
     VEN.grid(row=3,column=0)
-    VEN_Output = Label(VVI_Check, text=VEN_Val)
+    VEN_Output = Label(VVI_Check, text=VtrAmp_Val)
     VEN_Output.grid(row=3,column=1)
 
     VPW = Label(VVI_Check, text = "Ventricular Pulse Width Limit: ")
@@ -562,7 +580,7 @@ def Check_Set_VVI():
 
     VSEN = Label(VVI_Check, text = "Ventricular Sensitivity Limit: ")
     VSEN.grid(row=5,column=0)
-    VSEN_Output = Label(VVI_Check, text=VSEN_Val)
+    VSEN_Output = Label(VVI_Check, text=VtrSen_Val)
     VSEN_Output.grid(row=5,column=1)
     
     VRP = Label(VVI_Check, text = "Ventricular Refractory Period Limit: ")
@@ -572,19 +590,19 @@ def Check_Set_VVI():
 
     HYS = Label(VVI_Check, text = "Hysteresis Rate Limit: ")
     HYS.grid(row=7,column=0)
-    HYS_Output = Label(VVI_Check, text=HYS_Val)
+    HYS_Output = Label(VVI_Check, text=Hysteresis_Val)
     HYS_Output.grid(row=7,column=1)
 
     RSM = Label(VVI_Check, text = "Ventricular Amplitude Limit: ")
     RSM.grid(row=8,column=0)
-    RSM_Output = Label(VVI_Check, text=RSM_Val)
+    RSM_Output = Label(VVI_Check, text=RateSmoothing_Val)
     RSM_Output.grid(row=8,column=1)
 
-    if (LRL_Val == -1) | (URL_Val == -1) | (VEN_Val == -1) | (VPW_Val == -1) | (VSEN_Val == -1) | (VRP_Val == -1) | (HYS_Val == -1) | (RSM_Val == -1):
+    if (LRL_Val == -1) | (URL_Val == -1) | (VtrAmp_Val == -1) | (VPW_Val == -1) | (VtrSen_Val == -1) | (VRP_Val == -1) | (Hysteresis_Val == -1) | (RateSmoothing_Val == -1):
         Set_Button = Button(VVI_Check, text = "Go Back", command = VVI_Mode_Modifier)
         Set_Button.grid(row=9,column=0)
     else:
-        Set_Button = Button(VVI_Check, text = "Store", command = Store_Data)
+        Set_Button = Button(VVI_Check, text = "Store", command = Store_VVI)
         Set_Button.grid(row=9,column=0)  
    
 """
@@ -592,17 +610,84 @@ def Check_Set_VVI():
 """
          
 def Store_AOO():
-    global LRL_Input
+    global LRL_Val
+    global URL_Val
+    global AtrAmp_Val
+    global APW_Val
     List_Init()
     ParaList[0] = LRL_Val
     ParaList[1] = URL_Val
-    ParaList[6] = AtrAmp_Val
-    ParaList[8] = APW_Val
+    ParaList[7] = AtrAmp_Val
+    ParaList[9] = APW_Val
     f = open(creds2,'w')
-    for line in ParaList:
-     f.write(str(line))
-     f.write('\n')
+    for para in ParaList:
+        f.write(str(para))
+        f.write('\n')
+    f.close()
+
+def Store_VOO():
+    global LRL_Val
+    global URL_Val
+    global VtrAmp_Val
+    global VPW_Val
+    List_Init()
+    ParaList[0] = LRL_Val
+    ParaList[1] = URL_Val
+    ParaList[7] = VtrAmp_Val
+    ParaList[9] = VPW_Val
+    f = open(creds2,'w')
+    for para in ParaList:
+        f.write(str(para))
+        f.write('\n')
+    f.close()
+
+def Store_AAI():
+    global LRL_Val
+    global URL_Val
+    global AtrAmp_Val
+    global APW_Val
+    global AtrSen_Val
+    global ARP_Val
+    global PVARP_Val
+    global Hysteresis_Val
+    global RateSmoothing_Val
+    List_Init()
+    ParaList[0] = LRL_Val
+    ParaList[1] = URL_Val
+    ParaList[7] = AtrAmp_Val
+    ParaList[9] = APW_Val
+    ParaList[10] = AtrSen_Val
+    ParaList[12] = ARP_Val
+    ParaList[13] = PVARP_Val
+    ParaList[15] = Hysteresis_Val
+    ParaList[16] = RateSmoothing_Val
+    f = open(creds2,'w')
+    for para in ParaList:
+        f.write(str(para))
+        f.write('\n')
+    f.close()
+
+def Store_VVI():
+    global LRL_Val
+    global URL_Val
+    global VtrAmp_Val
+    global VPW_Val
+    global VtrSen_Val
+    global VRP_Val
+    global Hysteresis_Val
+    global RateSmoothing_Val
+    List_Init()
+    ParaList[0] = LRL_Val
+    ParaList[1] = URL_Val
+    ParaList[7] = VtrAmp_Val
+    ParaList[9] = VPW_Val
+    ParaList[10] = VtrSen_Val
+    ParaList[11] = VRP_Val
+    ParaList[15] = Hysteresis_Val
+    ParaList[16] = RateSmoothing_Val
+    f = open(creds2,'w')
+    for para in ParaList:
+        f.write(str(para))
+        f.write('\n')
     f.close()
     
-
-
