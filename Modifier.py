@@ -1,6 +1,11 @@
 from tkinter import *
 from Check_Para import *
+import os
 
+global ParaList
+creds2 = 'Parameter List.txt' # text file to store the Parameter List  
+
+# User Input Value of parameters before adjustment
 global LRL_Input
 global URL_Input
 global AtrAmp_Input
@@ -17,6 +22,24 @@ global HYS_Input
 global RSM_Input
 global RateSmoothing_Input
 
+#Value that will sent to the Pacemaker
+global LRL_Val
+global URL_Val
+global AtrAmp_Val
+global APW_Val
+global VtrAmp_Val
+global VPW_Val
+global VSEN_Val
+global AtrSen_Val
+global ARP_Val
+global VRP_Val
+global PVARP_Val
+global Hysteresis_Val
+global HYS_Val
+global RSM_Val
+global RateSmoothing_Val
+
+
 """
 @brief: System Message Screen shows this Mode is currently not accessible.
 @objectL OMM -> OFF_Mode_Modifier Screen
@@ -28,7 +51,13 @@ def OFF_Mode_Modifier():
     OMM.title("System Message");
     instruction  = Label(OMM,text = "\n This Mode is currently not accessible.")
     instruction.pack();
-         
+
+
+# Initialize the ParaList
+def List_Init():
+    global ParaList
+    ParaList = [0] * 25
+
 """
 @brief: AOO Mode Control Panel, user can change the value of the parameter for the AOO mode
 @object: AOOModeWindow -> The AOO Mode Modifier Screen
@@ -101,6 +130,10 @@ def AOO_Mode_Modifier():
 """
 
 def Check_Set_AOO():
+    global LRL_Val
+    global URL_Val
+    global AtrAmp_Val
+    global APW_Val
     AOO_Check = Tk()
     AOO_Check.title("System Message")
     
@@ -137,7 +170,7 @@ def Check_Set_AOO():
         Set_Button = Button(AOO_Check, text = "Go Back", command = AOO_Mode_Modifier)
         Set_Button.grid(row=5,column=0)
     else:
-        Set_Button = Button(AOO_Check, text = "Store", command = Store_Data)
+        Set_Button = Button(AOO_Check, text = "Store", command = Store_AOO)
         Set_Button.grid(row=5,column=0)
 
 """
@@ -558,7 +591,18 @@ def Check_Set_VVI():
 @brief:Store the value of the parameter in a specific file. This object will be used in further assignment
 """
          
-def Store_Data():
-    print("Successful Stored!")
+def Store_AOO():
+    global LRL_Input
+    List_Init()
+    ParaList[0] = LRL_Val
+    ParaList[1] = URL_Val
+    ParaList[6] = AtrAmp_Val
+    ParaList[8] = APW_Val
+    f = open(creds2,'w')
+    for line in ParaList:
+     f.write(str(line))
+     f.write('\n')
+    f.close()
+    
 
 
