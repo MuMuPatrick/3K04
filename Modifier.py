@@ -293,8 +293,13 @@ def Check_Set_VOO():
         Set_Button = Button(VOO_Check, text = "Go Back", command = VOO_Mode_Modifier)
         Set_Button.grid(row=5,column=0)
     else:
+        List_Init()
+        ParaList[0]=16
+        ParaList[1]=55
         Set_Button = Button(VOO_Check, text = "Store", command = Store_VOO)
         Set_Button.grid(row=5,column=0)
+        Pass = Button(VOO_Check, text = "Pass to Pacemaker", command = Pass_Val)
+        Pass.grid(row=5,column=1)
 
          
 def AAI_Mode_Modifier():
@@ -461,8 +466,13 @@ def Check_Set_AAI():
         Set_Button = Button(AAI_Check, text = "Go Back", command = AAI_Mode_Modifier)
         Set_Button.grid(row=10,column=0)
     else:
+        List_Init()
+        ParaList[0]=16
+        ParaList[1]=55
         Set_Button = Button(AAI_Check, text = "Store", command = Store_AAI)
         Set_Button.grid(row=10,column=0)
+        Pass = Button(AAI_Check, text = "Pass to Pacemaker", command = Pass_Val)
+        Pass.grid(row=10,column=1)
 
 def VVI_Mode_Modifier():
     global LRL_Input
@@ -614,8 +624,13 @@ def Check_Set_VVI():
         Set_Button = Button(VVI_Check, text = "Go Back", command = VVI_Mode_Modifier)
         Set_Button.grid(row=9,column=0)
     else:
+        List_Init()
+        ParaList[0]=16
+        ParaList[1]=55
         Set_Button = Button(VVI_Check, text = "Store", command = Store_VVI)
-        Set_Button.grid(row=9,column=0)  
+        Set_Button.grid(row=10,column=0)
+        Pass = Button(VVI_Check, text = "Pass to Pacemaker", command = Pass_Val)
+        Pass.grid(row=10,column=1)
    
 """
 @brief:Store the value of the parameter in a specific file. This object will be used in further assignment
