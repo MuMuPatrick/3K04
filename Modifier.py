@@ -3,7 +3,7 @@ from tkinter import messagebox
 from Check_Para import *
 import os
 import serial
-from serial.tools import List_ports
+from serial.tools import list_ports
 
 global ParaList
 creds2 = 'Parameter List.txt' # text file to store the Parameter List  
@@ -23,13 +23,14 @@ global PVARP_Val
 global Hysteresis_Val
 global RateSmoothing_Val
 
-
+global ser
 
 def connect():
-    port = list_ports.comports()
+    global ser
+    ports = list(list_ports.comports())
     ser = serial.Serial()
     ser.baudrate = 115200
-    ser.port = port[0]
+    ser.port = ports[0].device
     ser.timeout = None
     ser.open()
     if ser.is_open:
@@ -37,6 +38,9 @@ def connect():
     else:
         messagebox.showerror("System Message", "The Device is not connected")
 
+def disconnect():
+    global ser
+    ser.close()
 """
 @brief: System Message Screen shows this Mode is currently not accessible.
 @objectL OMM -> OFF_Mode_Modifier Screen
@@ -642,8 +646,8 @@ def Store_VOO():
     global VPW_Val
     ParaList[2] = LRL_Val
     ParaList[3] = URL_Val
-    ParaList[4] = VtrAmp_Val
-    ParaList[5] = VPW_Val
+    ParaList[4] = int (VtrAmp_Val*20)
+    ParaList[5] = int (VPW_Val*10)
     ParaList[6] = 11
     f = open(creds2,'w')
     for para in ParaList:
@@ -703,6 +707,6 @@ def Store_VVI():
         f.write('\n')
     f.close()
     
-def Pass_Val:
+def Pass_Val():
     global ParaList
-    s.write(ParaList)
+    ser.write(ParaList)
