@@ -53,7 +53,7 @@ def OFF_Mode_Modifier():
 # Initialize the ParaList
 def List_Init():
     global ParaList
-    ParaList = [0] * 11
+    ParaList = [0] * 13
 
 """
 @brief: AOO Mode Control Panel, user can change the value of the parameter for the AOO mode
@@ -644,6 +644,7 @@ def Store_VOO():
     ParaList[3] = URL_Val
     ParaList[4] = VtrAmp_Val
     ParaList[5] = VPW_Val
+    ParaList[6] = 11
     f = open(creds2,'w')
     for para in ParaList:
         f.write(str(para))
@@ -660,15 +661,17 @@ def Store_AAI():
     global PVARP_Val
     global Hysteresis_Val
     global RateSmoothing_Val
-    ParaList[0] = LRL_Val
-    ParaList[1] = URL_Val
-    ParaList[7] = AtrAmp_Val
-    ParaList[9] = APW_Val
-    ParaList[10] = AtrSen_Val
-    ParaList[12] = ARP_Val
-    ParaList[13] = PVARP_Val
-    ParaList[15] = Hysteresis_Val
-    ParaList[16] = RateSmoothing_Val
+    ParaList[2] = LRL_Val
+    ParaList[3] = URL_Val
+    ParaList[4] = AtrAmp_Val
+    ParaList[5] = APW_Val
+    ParaList[6] = 21
+    ParaList[7] = 1
+    ParaList[8] = AtrSen_Val
+    ParaList[9] = ARP_Val
+    ParaList[10] = Hysteresis_Val
+    ParaList[11] = RateSmoothing_Val
+    ParaList[12] = PVARP_Val
     f = open(creds2,'w')
     for para in ParaList:
         f.write(str(para))
@@ -684,14 +687,16 @@ def Store_VVI():
     global VRP_Val
     global Hysteresis_Val
     global RateSmoothing_Val
-    ParaList[0] = LRL_Val
-    ParaList[1] = URL_Val
-    ParaList[7] = VtrAmp_Val
-    ParaList[9] = VPW_Val
-    ParaList[10] = VtrSen_Val
-    ParaList[11] = VRP_Val
-    ParaList[15] = Hysteresis_Val
-    ParaList[16] = RateSmoothing_Val
+    ParaList[2] = LRL_Val
+    ParaList[3] = URL_Val
+    ParaList[4] = VtrAmp_Val
+    ParaList[5] = VPW_Val
+    ParaList[6] = 11
+    ParaList[7] = 1
+    ParaList[8] = VtrSen_Val
+    ParaList[9] = VRP_Val
+    ParaList[10] = Hysteresis_Val
+    ParaList[11] = RateSmoothing_Val
     f = open(creds2,'w')
     for para in ParaList:
         f.write(str(para))
