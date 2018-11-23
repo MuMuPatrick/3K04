@@ -267,7 +267,7 @@ def ModesControlPanel():
     
     spL = Label(mcp, text = "")
     spL.grid(row=8,columnspan=1,column=2)
-    cc_Button = Button(mcp, text='Check\nConnection',command=checkConnection) 
+    cc_Button = Button(mcp, text='Connect',command=connect)
     cc_Button.grid(row=9,column=2)
     sp2L = Label(mcp, text = "")
     sp2L.grid(row=10,columnspan=1,column=2)
@@ -279,12 +279,16 @@ def ModesControlPanel():
 @brief: Check the connection of the pacemaker. This function will be used in further assignments
 """
 
-def checkConnection():
+def connect():
     connected=True
     if(connected):
         con = Tk();
         con.title("Connection Status")
         con.geometry("220x30")
+        #######################################
+        #put our serial configuration codes here
+        
+        #######################################
         connectedL = Label(con, text="             device connected",fg='blue',anchor='center')
         connectedL.grid(row=1,columnspan=1)
 
