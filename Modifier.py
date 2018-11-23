@@ -1,24 +1,12 @@
 from tkinter import *
+from tkinter import messagebox
 from Check_Para import *
 import os
+import serial
+from serial.tools import List_ports
 
 global ParaList
 creds2 = 'Parameter List.txt' # text file to store the Parameter List  
-
-# User Input Value of parameters before adjustment
-global LRL_Input
-global URL_Input
-global AtrAmp_Input
-global APW_Input
-global VtrAmp_Input
-global VPW_Input
-global VtrSen_Input
-global AtrSen_Input
-global ARP_Input
-global VRP_Input
-global PVARP_Input
-global Hysteresis_Input
-global RateSmoothing_Input
 
 #Value that will sent to the Pacemaker
 global LRL_Val
@@ -36,6 +24,19 @@ global Hysteresis_Val
 global RateSmoothing_Val
 
 
+
+def connect():
+    port = list_ports.comports()
+    ser = serial.Serial()
+    ser.baudrate = 115200
+    ser.port = port[0]
+    ser.timeout = None
+    ser.open()
+    if ser.is_open:
+        messagebox.showinfo("System Message", "The Device is connected")
+    else:
+        messagebox.showerror("System Message", "The Device is not connected")
+
 """
 @brief: System Message Screen shows this Mode is currently not accessible.
 @objectL OMM -> OFF_Mode_Modifier Screen
@@ -43,16 +44,16 @@ global RateSmoothing_Val
 """
 
 def OFF_Mode_Modifier():
-    OMM = Tk();
+    OMM = Tk()
     OMM.title("System Message");
     instruction  = Label(OMM,text = "\n This Mode is currently not accessible.")
-    instruction.pack();
+    instruction.pack()
 
 
 # Initialize the ParaList
 def List_Init():
     global ParaList
-    ParaList = [0] * 25
+    ParaList = [0] * 11
 
 """
 @brief: AOO Mode Control Panel, user can change the value of the parameter for the AOO mode
@@ -130,6 +131,7 @@ def Check_Set_AOO():
     global URL_Val
     global AtrAmp_Val
     global APW_Val
+    global ParaList
     AOO_Check = Tk()
     AOO_Check.title("System Message")
     
@@ -161,13 +163,19 @@ def Check_Set_AOO():
     APW_Ouput = Label(AOO_Check, text=APW_Val)
     APW_Ouput.grid(row=4,column=1)
 
+    
     # If one of these parameters is invalid (Checked by Check_Change functions), the Button will lead the User to Modifier Screen. Else, it will lead the user to store the results
     if (LRL_Val == -1) | (URL_Val == -1) | (AtrAmp_Val == -1) | (APW_Val == -1):
         Set_Button = Button(AOO_Check, text = "Go Back", command = AOO_Mode_Modifier)
         Set_Button.grid(row=5,column=0)
     else:
+        List_Init()
+        ParaList[0]=16
+        ParaList[1]=55
         Set_Button = Button(AOO_Check, text = "Store", command = Store_AOO)
         Set_Button.grid(row=5,column=0)
+        Pass = Button(AOO_Check, text = "Pass to Pacemaker", command = Pass_Val)
+        Pass.grid(row=5,column=1)
 
 """
 @brief: VOO Mode Control Panel, user can change the value of the parameter for the VOO mode
@@ -614,11 +622,12 @@ def Store_AOO():
     global URL_Val
     global AtrAmp_Val
     global APW_Val
-    List_Init()
-    ParaList[0] = LRL_Val
-    ParaList[1] = URL_Val
-    ParaList[7] = AtrAmp_Val
-    ParaList[9] = APW_Val
+    global ParaList
+    ParaList[2] = LRL_Val
+    ParaList[3] = URL_Val
+    ParaList[4] = int (AtrAmp_Val*20)
+    ParaList[5] = int (APW_Val*10)
+    ParaList[6] = 21
     f = open(creds2,'w')
     for para in ParaList:
         f.write(str(para))
@@ -626,15 +635,15 @@ def Store_AOO():
     f.close()
 
 def Store_VOO():
+    global ParaList
     global LRL_Val
     global URL_Val
     global VtrAmp_Val
     global VPW_Val
-    List_Init()
-    ParaList[0] = LRL_Val
-    ParaList[1] = URL_Val
-    ParaList[7] = VtrAmp_Val
-    ParaList[9] = VPW_Val
+    ParaList[2] = LRL_Val
+    ParaList[3] = URL_Val
+    ParaList[4] = VtrAmp_Val
+    ParaList[5] = VPW_Val
     f = open(creds2,'w')
     for para in ParaList:
         f.write(str(para))
@@ -651,7 +660,6 @@ def Store_AAI():
     global PVARP_Val
     global Hysteresis_Val
     global RateSmoothing_Val
-    List_Init()
     ParaList[0] = LRL_Val
     ParaList[1] = URL_Val
     ParaList[7] = AtrAmp_Val
@@ -676,7 +684,6 @@ def Store_VVI():
     global VRP_Val
     global Hysteresis_Val
     global RateSmoothing_Val
-    List_Init()
     ParaList[0] = LRL_Val
     ParaList[1] = URL_Val
     ParaList[7] = VtrAmp_Val
@@ -691,3 +698,6 @@ def Store_VVI():
         f.write('\n')
     f.close()
     
+def Pass_Val:
+    global ParaList
+    s.write(ParaList)
