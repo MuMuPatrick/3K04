@@ -5,7 +5,6 @@
 
 from tkinter import *
 from tkinter import messagebox
-
 from Modifier import *
 
 import os
@@ -177,9 +176,9 @@ def CheckLogin():
             data = f.readlines()
             TruePword = data[1]
             f.close()
-        os.chdir('..')
-        os.chdir('..')
         if TruePword != Password+'\n':
+            os.chdir('..')
+            os.chdir('..')
             messagebox.showerror('System Message', 'Invalid Password')
         else:
             ModesControlPanel()
@@ -273,24 +272,6 @@ def ModesControlPanel():
     sp2L.grid(row=10,columnspan=1,column=2)
     di_Button = Button(mcp, text='Check\nDevice Info',command=checkDeviceInfo) 
     di_Button.grid(row=11,column=2)
-
-       
-"""
-@brief: Check the connection of the pacemaker. This function will be used in further assignments
-"""
-
-def connect():
-    connected=True
-    if(connected):
-        con = Tk();
-        con.title("Connection Status")
-        con.geometry("220x30")
-        #######################################
-        #put our serial configuration codes here
-        
-        #######################################
-        connectedL = Label(con, text="             device connected",fg='blue',anchor='center')
-        connectedL.grid(row=1,columnspan=1)
 
 
 """
