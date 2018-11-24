@@ -24,9 +24,34 @@ global Hysteresis_Val
 global RateSmoothing_Val
 
 global ser
+global ports
+
+"""
+@brief: Check the Device Code. This  function will be used in further assignments
+"""
+
+def checkDeviceInfo():
+    if(ser.is_open):
+        di = Tk();
+        di.title("Device")
+        D1 = Label(di, text="Device name:",fg='blue',anchor='center')
+        D1.grid(row=1,column=1)
+        D1name = Label(di, text=ports[0].device,anchor='center')
+        D1name.grid(row=1,column=2)
+        D2 = Label(di, text="Description:",fg='blue',anchor='center')
+        D2.grid(row=2,column=1)
+        D2name = Label(di, text=ports[0].description,anchor='center')
+        D2name.grid(row=2,column=2)
+        D3 = Label(di, text="Manufacturer",fg='blue',anchor='center')
+        D3.grid(row=3,column=1)
+        D3name = Label(di, text=ports[0].manufacturer,anchor='center')
+        D3name.grid(row=3,column=2)
+    else:
+        messagebox.showerror("System Message", "The device is not connected")
 
 def connect():
     global ser
+    global ports
     ports = list(list_ports.comports())
     ser = serial.Serial()
     ser.baudrate = 115200
@@ -174,8 +199,8 @@ def Check_Set_AOO():
         Set_Button.grid(row=5,column=0)
     else:
         List_Init()
-        ParaList[0]=16
-        ParaList[1]=55
+        ParaList[0]=22
+        ParaList[1]=85
         Set_Button = Button(AOO_Check, text = "Store", command = Store_AOO)
         Set_Button.grid(row=5,column=0)
         Pass = Button(AOO_Check, text = "Pass to Pacemaker", command = Pass_Val)
@@ -294,8 +319,8 @@ def Check_Set_VOO():
         Set_Button.grid(row=5,column=0)
     else:
         List_Init()
-        ParaList[0]=16
-        ParaList[1]=55
+        ParaList[0]=22
+        ParaList[1]=85
         Set_Button = Button(VOO_Check, text = "Store", command = Store_VOO)
         Set_Button.grid(row=5,column=0)
         Pass = Button(VOO_Check, text = "Pass to Pacemaker", command = Pass_Val)
@@ -466,13 +491,8 @@ def Check_Set_AAI():
         Set_Button = Button(AAI_Check, text = "Go Back", command = AAI_Mode_Modifier)
         Set_Button.grid(row=10,column=0)
     else:
-        List_Init()
-        ParaList[0]=16
-        ParaList[1]=55
         Set_Button = Button(AAI_Check, text = "Store", command = Store_AAI)
         Set_Button.grid(row=10,column=0)
-        Pass = Button(AAI_Check, text = "Pass to Pacemaker", command = Pass_Val)
-        Pass.grid(row=10,column=1)
 
 def VVI_Mode_Modifier():
     global LRL_Input
@@ -624,13 +644,8 @@ def Check_Set_VVI():
         Set_Button = Button(VVI_Check, text = "Go Back", command = VVI_Mode_Modifier)
         Set_Button.grid(row=9,column=0)
     else:
-        List_Init()
-        ParaList[0]=16
-        ParaList[1]=55
         Set_Button = Button(VVI_Check, text = "Store", command = Store_VVI)
-        Set_Button.grid(row=10,column=0)
-        Pass = Button(VVI_Check, text = "Pass to Pacemaker", command = Pass_Val)
-        Pass.grid(row=10,column=1)
+        Set_Button.grid(row=9,column=0)  
    
 """
 @brief:Store the value of the parameter in a specific file. This object will be used in further assignment
@@ -646,7 +661,7 @@ def Store_AOO():
     ParaList[3] = URL_Val
     ParaList[4] = int (AtrAmp_Val*20)
     ParaList[5] = int (APW_Val*10)
-    ParaList[6] = 21
+    ParaList[6] = 17
     f = open(creds2,'w')
     for para in ParaList:
         f.write(str(para))
@@ -659,11 +674,12 @@ def Store_VOO():
     global URL_Val
     global VtrAmp_Val
     global VPW_Val
+    global ParaList
     ParaList[2] = LRL_Val
     ParaList[3] = URL_Val
     ParaList[4] = int (VtrAmp_Val*20)
     ParaList[5] = int (VPW_Val*10)
-    ParaList[6] = 11
+    ParaList[6] = 33
     f = open(creds2,'w')
     for para in ParaList:
         f.write(str(para))
@@ -684,7 +700,7 @@ def Store_AAI():
     ParaList[3] = URL_Val
     ParaList[4] = AtrAmp_Val
     ParaList[5] = APW_Val
-    ParaList[6] = 21
+    ParaList[6] = 17
     ParaList[7] = 1
     ParaList[8] = AtrSen_Val
     ParaList[9] = ARP_Val
@@ -710,7 +726,7 @@ def Store_VVI():
     ParaList[3] = URL_Val
     ParaList[4] = VtrAmp_Val
     ParaList[5] = VPW_Val
-    ParaList[6] = 11
+    ParaList[6] = 33
     ParaList[7] = 1
     ParaList[8] = VtrSen_Val
     ParaList[9] = VRP_Val
@@ -724,4 +740,5 @@ def Store_VVI():
     
 def Pass_Val():
     global ParaList
+    print(ParaList)
     ser.write(ParaList)
