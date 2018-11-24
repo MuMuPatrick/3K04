@@ -81,6 +81,13 @@ def Check_Change_PW(PW):
         return round(0.1+temp*0.1,1)
     else:
         return -1
+  
+"""
+@brief: Check the correctness of the value of Atrial Sensitivity or Ventricular Sensitivity. If this is a invaild input, system will change the value into the biggest vaild value that smaller than the input
+@para: PW -> the value of pulse width read from the User's input
+@Note: The system will find out which region the value is in and change the value based on the increments given in the manual
+       If the input in not in these regions, a -1 will be returned.
+"""
 
 def Check_Change_AVSen(S):
     if (S == 0.25): return S
@@ -92,12 +99,26 @@ def Check_Change_AVSen(S):
     else:
         return -1
 
+"""
+@brief: Check the correctness of the value of Atrical or Ventricular Refractory Period. If this is a invaild input, system will change the value into the biggest vaild value that smaller than the input
+@para: PW -> the value of pulse width read from the User's input
+@Note: The system will find out which region the value is in and change the value based on the increments given in the manual
+       If the input in not in these regions, a -1 will be returned.
+"""
+       
 def Check_Change_AVRP(RP):
     if (RP>=150) & (RP<=500):
         temp = round((RP-150)/10)
         return round(150+temp*10,1)
     else:
         return -1
+
+"""
+@brief: Check the correctness of the value of Rate Smoothing. If this is a invaild input, system will change the value into the biggest vaild value that smaller than the input
+@para: PW -> the value of pulse width read from the User's input
+@Note: The system will find out which region the value is in and change the value based on the increments given in the manual
+       If the input in not in these regions, a -1 will be returned.
+"""
 
 def Check_Change_RS(RS):
     if (RS==3):return RS
