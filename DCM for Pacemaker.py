@@ -272,20 +272,10 @@ def ModesControlPanel():
     sp2L.grid(row=10,columnspan=1,column=2)
     di_Button = Button(mcp, text='Check\nDevice Info',command=checkDeviceInfo) 
     di_Button.grid(row=11,column=2)
-
-
-"""
-@brief: Check the Device Code. This  function will be used in further assignments
-"""
-
-def checkDeviceInfo():
-    connected=True
-    if(connected):
-        di = Tk();
-        di.title("Device")
-        di.geometry("100x30")
-        diL = Label(di, text="      device 1",fg='blue',anchor='center')
-        diL.grid(row=1,columnspan=1)
+    sp3L = Label(mcp,text = "")
+    sp3L.grid(row=12, columnspan=1, column=2)
+    dis_Button = Button(mcp, text='Disconnect',command=disconnect)
+    dis_Button.grid(row=13,column=2)
 
 
 Welcome() # The System goes to Welcome Screen everytime the program is executed
