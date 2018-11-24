@@ -49,6 +49,13 @@ def checkDeviceInfo():
     else:
         messagebox.showerror("System Message", "The device is not connected")
 
+        
+"""
+@brief: To connect to the pacemaker and the connection result will be displayed.
+@Object: ser -> for configuration of the serial communication
+         ports -> for the configuration of the port which is connected to the device
+"""
+
 def connect():
     global ser
     global ports
@@ -63,9 +70,15 @@ def connect():
     else:
         messagebox.showerror("System Message", "The Device is not connected")
 
+"""
+@brief: To disconnect with the device
+@Object: ser -> for disconnection of the serial communication
+"""    
+        
 def disconnect():
     global ser
     ser.close()
+    
 """
 @brief: System Message Screen shows this Mode is currently not accessible.
 @objectL OMM -> OFF_Mode_Modifier Screen
@@ -85,9 +98,9 @@ def List_Init():
     ParaList = [0] * 13
 
 """
-@brief: AOO Mode Control Panel, user can change the value of the parameter for the AOO mode
+@brief: AOO Mode Control Panel, user can enter or change the value of the parameter for the AOO mode
 @object: AOOModeWindow -> The AOO Mode Modifier Screen
-         pvl,vl,cvl,rtl -> The Colume Label, stand for Programmable Variable, Value, Tolerance respectively
+         pvl,vl,rtl -> The Colume Label, stand for Programmable Variable, Value, Tolerance respectively
          LRL,URL,AtrAmp,APW -> The row label, stand for Lower Rate Limit, Upper Rate Limit, Atrial Amplitude, Atrial Pulse Width respectively
          (LRL,URL,AtrAmp,APW)_Input -> The Entry box for Lower Rate Limit, Upper Rate Limit, Atrial Amplitude, Atrial Pulse Width respectively
          (LRL,URL,AtrAmp,APW)_T -> The Tolerance for Lower Rate Limit, Upper Rate Limit, Atrial Amplitude, Atrial Pulse Width respectively
@@ -149,9 +162,9 @@ def AOO_Mode_Modifier():
 @Brief: Check the Value of the paramater in AOO Mode that set by User and give out the right result of the parameters
 @Object: AOO_Check -> The Screen that display the value of parameter that will sent to the pacemaker
          Display -> "The Parameter List" Label
-         (LRL,URL,AtrAmp,APW)_Val -> The values of the parameter check and revised by the system, stand for Lower Rate Limit, Upper Rate Limit, Atrial Amplitude, Atrial Pulse Width respectively
-         LRL,URL,AtrAmp,APW -> The Labels for variables, stand for Lower Rate Limit, Upper Rate Limit, Atrial Amplitude, Atrial Pulse Width respectively
-         (LRL,URL,AtrAmp,APW)_Output -> Display the result of the variables, stand for Lower Rate Limit, Upper Rate Limit, Atrial Amplitude, Atrial Pulse Width respectively
+         (LRL,URL,AtrAmp,APW)_Val -> The values of the parameter check and revised by the system, stand for Lower Rate Limit, Upper Rate Limit, Atrial Pulse Amplitude, Atrial Pulse Width respectively
+         LRL,URL,AtrAmp,APW -> The Labels for variables, stand for Lower Rate Limit, Upper Rate Limit, Atrial Pulse Amplitude, Atrial Pulse Width respectively
+         (LRL,URL,AtrAmp,APW)_Output -> Display the result of the variables, stand for Lower Rate Limit, Upper Rate Limit, Atrial Pulse Amplitude, Atrial Pulse Width respectively
          Set_button -> Button that lead the User to further procedure
 """
 
@@ -207,14 +220,14 @@ def Check_Set_AOO():
         Pass.grid(row=5,column=1)
 
 """
-@brief: VOO Mode Control Panel, user can change the value of the parameter for the VOO mode
+@brief: VOO Mode Control Panel, user can enter or change the value of the parameter for the VOO mode
 @object: AOOModeWindow -> The VOO Mode Modifier Screen
-         pvl,vl,cvl,rtl -> The Colume Label, stand for Programmable Variable, Value, Tolerance respectively
-         LRL,URL,VtrAmp,VPW -> The row label, stand for Lower Rate Limit, Upper Rate Limit, Ventricular Amplitude, Ventricular Pulse Width respectively
-         (LRL,URL,VtrAmp,VPW)_Input -> The Entry box for Lower Rate Limit, Upper Rate Limit, Ventricular Amplitude, Ventricular Pulse Width respectively
-         (LRL,URL,VtrAmp,VPW)_T -> The Tolerance for Lower Rate Limit, Upper Rate Limit, Ventricular Amplitude, Ventricular Pulse Width respectively
+         pvl,vl,rtl -> The Colume Label, stand for Programmable Variable, Value, Tolerance respectively
+         LRL,URL,VtrAmp,VPW -> The row label, stand for Lower Rate Limit, Upper Rate Limit, Ventricular Pulse Amplitude, Ventricular Pulse Width respectively
+         (LRL,URL,VtrAmp,VPW)_Input -> The Entry box for Lower Rate Limit, Upper Rate Limit, Ventricular Pulse Amplitude, Ventricular Pulse Width respectively
+         (LRL,URL,VtrAmp,VPW)_T -> The Tolerance for Lower Rate Limit, Upper Rate Limit, Ventricular Pulse Amplitude, Ventricular Pulse Width respectively
          Set_button -> Set the parameter
-@parameter: (LRL,URL,VtrAmp,VPW)_Input -> The Result (in String) for Lower Rate Limit, Upper Rate Limit, Ventricular Amplitude, Ventricular Pulse Width respectively
+@parameter: (LRL,URL,VtrAmp,VPW)_Input -> The Result (in String) for Lower Rate Limit, Upper Rate Limit, Ventricular Pulse Amplitude, Ventricular Pulse Width respectively
 """
          
 def VOO_Mode_Modifier():
@@ -269,9 +282,9 @@ def VOO_Mode_Modifier():
 @Brief: Check the Value of the paramater in VOO Mode that set by User and give out the right result of the parameters
 @Object: VOO_Check -> The Screen that display the value of parameter that will sent to the pacemaker
          Display -> "The Parameter List" Label
-         (LRL,URL,VtrAmp,VPW)_Val -> The values of the parameter check and revised by the system, stand for Lower Rate Limit, Upper Rate Limit, Ventricular Amplitude, Ventricular Pulse Width respectively
-         LRL,URL,VtrAmp,VPW -> The Labels for variables, stand for Lower Rate Limit, Upper Rate Limit, Ventricular Amplitude, Ventricular Pulse Width respectively
-         (LRL,URL,VtrAmp,VPW)_Output -> Display the result of the variables, stand for Lower Rate Limit, Upper Rate Limit, Ventricular Amplitude, Ventricular Pulse Width respectively
+         (LRL,URL,VtrAmp,VPW)_Val -> The values of the parameter check and revised by the system, stand for Lower Rate Limit, Upper Rate Limit, Ventricular Pulse Amplitude, Ventricular Pulse Width respectively
+         LRL,URL,VtrAmp,VPW -> The Labels for variables, stand for Lower Rate Limit, Upper Rate Limit, Ventricular Pulse Amplitude, Ventricular Pulse Width respectively
+         (LRL,URL,VtrAmp,VPW)_Output -> Display the result of the variables, stand for Lower Rate Limit, Upper Rate Limit, Ventricular Pulse Amplitude, Ventricular Pulse Width respectively
          Set_button -> Button that lead the User to further procedure
 """
 
@@ -326,6 +339,16 @@ def Check_Set_VOO():
         Pass = Button(VOO_Check, text = "Pass to Pacemaker", command = Pass_Val)
         Pass.grid(row=5,column=1)
 
+"""
+@brief: AAI Mode Control Panel, user can enter or change the value of the parameter for the AAI mode
+@object: AAIModeWindow -> The AAI Mode Modifier Screen
+         pvl,vl,rtl -> The Colume Label, stand for Programmable Variable, Value, Tolerance respectively
+         LRL,URL,AtrAmp,APW,AtrSen,ARP,PVARP,Hysteresis,RateSmoothing -> The row label, stand for Lower Rate Limit, Upper Rate Limit, Atrial Pulse Amplitude, Atrial Pulse Width, Atrial Sensitivity, Atrial Refractory Period, PVARP, Hysteresis Rame Limit, and Rate Smoothing respectively
+         (LRL,URL,AtrAmp,APW,AtrSen,ARP,PVARP,Hysteresis,RateSmoothing)_Input -> The Entry box for Lower Rate Limit, Upper Rate Limit,  Atrial Pulse Amplitude, Atrial Pulse Width, Atrial Sensitivity, Atrial Refractory Period, PVARP, Hysteresis Rame Limit, and Rate Smoothing respectively
+         (LRL,URL,AtrAmp,APW,AtrSen,ARP,PVARP,Hysteresis,RateSmoothing)_T -> The Tolerance for Lower Rate Limit, Upper Rate Limit,  Atrial Pulse Amplitude, Atrial Pulse Width, Atrial Sensitivity, Atrial Refractory Period, PVARP, Hysteresis Rame Limit, and Rate Smoothing respectively
+         Set_button -> Set the parameter
+@parameter: (LRL,URL,AtrAmp,APW,AtrSen,ARP,PVARP,Hysteresis,RateSmoothing)_Input -> The Result (in String) for Lower Rate Limit, Upper Rate Limit,  Atrial Pulse Amplitude, Atrial Pulse Width, Atrial Sensitivity, Atrial Refractory Period, PVARP, Hysteresis Rame Limit, and Rate Smoothing respectively
+"""
          
 def AAI_Mode_Modifier():
     global LRL_Input
@@ -415,6 +438,16 @@ def AAI_Mode_Modifier():
     Set_button = Button(AAIModeWindow, text = "Set Mode", command=Check_Set_AAI)
     Set_button.grid(row=16,column=1)
 
+"""
+@Brief: Check the Value of the paramater in AAI Mode that set by User and give out the right result of the parameters
+@Object: AAI_Check -> The Screen that display the value of parameter that will sent to the pacemaker
+         Display -> "The Parameter List" Label
+         (LRL,URL,AtrAmp,APW,AtrSen,ARP,PVARP,Hysteresis,RateSmoothing)_Val -> The values of the parameter check and revised by the system, stand for Lower Rate Limit, Upper Rate Limit, Atrial Pulse Amplitude, Atrial Pulse Width, Atrial Sensitivity, Atrial Refractory Period, PVARP, Hysteresis Rame Limit, and Rate Smoothing respectively
+         LRL,URL,AtrAmp,APW,AtrSen,ARP,PVARP,Hysteresis,RateSmoothing -> The Labels for variables, stand for Lower Rate Limit, Upper Rate Limit, Atrial Pulse Amplitude, Atrial Pulse Width, Atrial Sensitivity, Atrial Refractory Period, PVARP, Hysteresis Rame Limit, and Rate Smoothing respectively
+         (LRL,URL,AtrAmp,APW,AtrSen,ARP,PVARP,Hysteresis,RateSmoothing)_Output -> Display the result of the variables, stand for Lower Rate Limit, Upper Rate Limit, Atrial Pulse Amplitude, Atrial Pulse Width, Atrial Sensitivity, Atrial Refractory Period, PVARP, Hysteresis Rame Limit, and Rate Smoothing respectively
+         Set_button -> Button that lead the User to further procedure
+"""
+    
 def Check_Set_AAI():
     global LRL_Val
     global URL_Val
@@ -493,6 +526,17 @@ def Check_Set_AAI():
     else:
         Set_Button = Button(AAI_Check, text = "Store", command = Store_AAI)
         Set_Button.grid(row=10,column=0)
+     
+"""
+@brief: VVI Mode Control Panel, user can enter or change the value of the parameter for the VVI mode
+@object: VVIModeWindow -> The VVI Mode Modifier Screen
+         pvl,vl,rtl -> The Colume Label, stand for Programmable Variable, Value, Tolerance respectively
+         LRL,URL,VtrAmp,VPW,VtrSen,VRP,Hysteresis,RateSmoothing -> The row label, stand for Lower Rate Limit, Upper Rate Limit, Ventricular Pulse Amplitude, Ventricular Pulse Width, Ventricular Sensitivity, Ventricular Refractory Period, Hysteresis Rame Limit, and Rate Smoothing respectively
+         (LRL,URL,VtrAmp,VPW,VtrSen,VRP,Hysteresis,RateSmoothing)_Input -> The Entry box for Lower Rate Limit, Upper Rate Limit, Ventricular Pulse Amplitude, Ventricular Pulse Width, Ventricular Sensitivity, Ventricular Refractory Period, Hysteresis Rame Limit, and Rate Smoothing respectively
+         (LRL,URL,VtrAmp,VPW,VtrSen,VRP,Hysteresis,RateSmoothing)_T -> The Tolerance for Lower Rate Limit, Upper Rate Limit, Ventricular Pulse Amplitude, Ventricular Pulse Width,Ventricular Sensitivity, Ventricular Refractory Period, Hysteresis Rame Limit, and Rate Smoothing respectively
+         Set_button -> Set the parameter
+@parameter: (LRL,URL,VtrAmp,VPW,VtrSen,VRP,Hysteresis,RateSmoothing)_Input -> The Result (in String) for for Lower Rate Limit, Upper Rate Limit, Ventricular Pulse Amplitude, Ventricular Pulse Width,Ventricular Sensitivity, Ventricular Refractory Period, PVARP, Hysteresis Rame Limit, and Rate Smoothing respectively
+"""
 
 def VVI_Mode_Modifier():
     global LRL_Input
@@ -576,6 +620,16 @@ def VVI_Mode_Modifier():
     Set_button = Button(VVIModeWindow, text = "Set Mode", command=Check_Set_VVI)
     Set_button.grid(row=11,column=1)
 
+"""
+@Brief: Check the Value of the paramater in VVI Mode that set by User and give out the right result of the parameters
+@Object: VVI_Check -> The Screen that display the value of parameter that will sent to the pacemaker
+         Display -> "The Parameter List" Label
+         (LRL,URL,VtrAmp,VPW,VtrSen,VRP,Hysteresis,RateSmoothing)_Val -> The values of the parameter check and revised by the system, stand for Lower Rate Limit, Upper Rate Limit, Ventricular Pulse Amplitude, Ventricular Pulse Width, Ventricular Sensitivity, Ventricular Refractory Period, Hysteresis Rame Limit, and Rate Smoothing respectively
+         LRL,URL,VtrAmp,VPW,VtrSen,VRP,Hysteresis,RateSmoothing -> The Labels for variables, stand for Lower Rate Limit, Upper Rate Limit, Ventricular Pulse Amplitude, Ventricular Pulse Width, Ventricular Sensitivity, Ventricular Refractory Period, Hysteresis Rame Limit, and Rate Smoothing respectively
+         (LRL,URL,VtrAmp,VPW,VtrSen,VRP,Hysteresis,RateSmoothing)_Output -> Display the result of the variables, stand for Lower Rate Limit, Upper Rate Limit, Ventricular Pulse Amplitude, Ventricular Pulse Width, Ventricular Sensitivity, Ventricular Refractory Period, Hysteresis Rame Limit, and Rate Smoothing respectively
+         Set_button -> Button that lead the User to further procedure
+"""  
+
 def Check_Set_VVI():
     global LRL_Val
     global URL_Val
@@ -648,7 +702,9 @@ def Check_Set_VVI():
         Set_Button.grid(row=9,column=0)  
    
 """
-@brief:Store the value of the parameter in a specific file. This object will be used in further assignment
+@brief:Store the parameters of AOO mode set by the user into a specific data file called "Parameter List.txt" .
+@Object: (LRL,URL,AtrAmp,APW)_Val -> The values of the parameter check and revised by the system, stand for Lower Rate Limit, Upper Rate Limit, Atrial Pulse Amplitude, Atrial Pulse Width respectively
+         ParaList -> the list of parameters which will be sent to the pacemaker
 """
          
 def Store_AOO():
@@ -668,6 +724,12 @@ def Store_AOO():
         f.write('\n')
     f.close()
 
+"""
+@brief: Store the parameters of VOO mode set by the user into a specific data file called "Parameter List.txt" .
+@Object: (LRL,URL,VtrAmp,VPW)_Val -> The values of the parameter check and revised by the system, stand for Lower Rate Limit, Upper Rate Limit, Ventricular Pulse Amplitude, Ventricular Pulse Width respectively
+         ParaList -> the list of parameters which will be sent to the pacemaker
+"""
+    
 def Store_VOO():
     global ParaList
     global LRL_Val
@@ -685,6 +747,12 @@ def Store_VOO():
         f.write(str(para))
         f.write('\n')
     f.close()
+    
+"""
+@brief: Store the parameters of AAI mode set by the user into a specific data file called "Parameter List.txt" .
+@Object: (LRL,URL,AtrAmp,APW,AtrSen,ARP,PVARP,Hysteresis,RateSmoothing)_Val -> The values of the parameter check and revised by the system, stand for Lower Rate Limit, Upper Rate Limit, Atrial Pulse Amplitude, Atrial Pulse Width, Atrial Sensitivity, Atrial Refractory Period, PVARP, Hysteresis Rame Limit, and Rate Smoothing respectively
+         ParaList -> the list of parameters which will be sent to the pacemaker
+"""
 
 def Store_AAI():
     global LRL_Val
@@ -712,6 +780,12 @@ def Store_AAI():
         f.write(str(para))
         f.write('\n')
     f.close()
+    
+"""
+@brief: Store the parameters of VVI mode set by the user into a specific data file called "Parameter List.txt" .
+@Object: (LRL,URL,VtrAmp,VPW,VtrSen,VRP,Hysteresis,RateSmoothing)_Val -> The values of the parameter check and revised by the system, stand for Lower Rate Limit, Upper Rate Limit, Ventricular Pulse Amplitude, Ventricular Pulse Width, Ventricular Sensitivity, Ventricular Refractory Period, Hysteresis Rame Limit, and Rate Smoothing respectively
+         ParaList -> the list of parameters which will be sent to the pacemaker
+"""
 
 def Store_VVI():
     global LRL_Val
@@ -738,6 +812,12 @@ def Store_VVI():
         f.write('\n')
     f.close()
     
+    
+"""
+@brief: to pass the parameters to the pacemaker in order to change the mode
+@objectL ParaList -> the list of parameters which will be sent to the pacemaker
+
+"""    
 def Pass_Val():
     global ParaList
     print(ParaList)
