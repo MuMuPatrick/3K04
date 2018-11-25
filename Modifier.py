@@ -6,7 +6,18 @@ import serial
 from serial.tools import list_ports
 
 global ParaList
-creds2 = 'Parameter List.txt' # text file to store the Parameter List  
+creds2 = 'Parameter List.txt' # text file to store the Parameter List
+"""
+ The ParaList has 13 elements,
+       -- The First 2 element are used as the indicator of the valid output, if the ParaList[0] = 22 and ParaList[1] = 85, means the input is valid input
+       -- The next 2 element are the value for the lower rate limit (LRL), Upper rate limit (URL)
+       -- 5rd element is the Amplitude of the Signal
+       -- 6th element is the Pulse with of the Signal
+       -- 7th element is the indicator of the A of V mode. If the ParaList[6] = 17, The Pacemaker will change into AOO & AAI. If the ParaList[6] = 33, the Pacemaker will change into VOO & VVI
+       -- 8th element is the indicator to differ AOO with AAI, if the ParaList[7] = 0, the Sensing Mode will be off and the Sensing mode will be on when the ParaList[7] = 1.
+       -- The next four Elements are the Parameters for the AAI or VVI, the sensitivity, refactory period, the Hysteresis, the RateSmoothing respectively
+       -- The Last Element is the PVARP
+"""
 
 #Value that will sent to the Pacemaker
 global LRL_Val
@@ -26,8 +37,13 @@ global RateSmoothing_Val
 global ser
 global ports
 
+
+ser = serial.Serial()
 """
-@brief: Check the Device Code. This  function will be used in further assignments
+@brief: Check the Device Code. This window will provide the information of the Device connected to the Computer
+        - The name of the Device
+        - The Discription of the Device
+        - The Manufacturer of the Device
 """
 
 def checkDeviceInfo():
@@ -91,8 +107,10 @@ def OFF_Mode_Modifier():
     instruction  = Label(OMM,text = "\n This Mode is currently not accessible.")
     instruction.pack()
 
+"""
+@brief: Initialize the ParaList
+"""
 
-# Initialize the ParaList
 def List_Init():
     global ParaList
     ParaList = [0] * 13
