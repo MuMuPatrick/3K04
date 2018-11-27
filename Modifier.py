@@ -13,7 +13,7 @@ creds2 = 'Parameter List.txt' # text file to store the Parameter List
        -- The next 2 element are the value for the lower rate limit (LRL), Upper rate limit (URL)
        -- 5rd element is the Amplitude of the Signal
        -- 6th element is the Pulse with of the Signal
-       -- 7th element is the indicator of the A of V mode. If the ParaList[6] = 17, The Pacemaker will change into AOO & AAI. If the ParaList[6] = 33, the Pacemaker will change into VOO & VVI
+       -- 7th element is the indicator of the A of V mode. If the ParaList[6] = 1, The Pacemaker will change into AOO & AAI. If the ParaList[6] = 0, the Pacemaker will change into VOO & VVI
        -- 8th element is the indicator to differ AOO with AAI, if the ParaList[7] = 0, the Sensing Mode will be off and the Sensing mode will be on when the ParaList[7] = 1.
        -- The next four Elements are the Parameters for the AAI or VVI, the sensitivity, refactory period, the Hysteresis, the RateSmoothing respectively
            Note: As the refactory period is a interger between 100 to 500 which may bigger than 256, we two position to store the refactory period
