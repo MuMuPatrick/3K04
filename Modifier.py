@@ -8,7 +8,7 @@ from serial.tools import list_ports
 global ParaList
 creds2 = 'Parameter List.txt' # text file to store the Parameter List
 """
- The ParaList has 13 elements,
+ The ParaList has 15 elements,
        -- The First 2 element are used as the indicator of the valid output, if the ParaList[0] = 22 and ParaList[1] = 85, means the input is valid input
        -- The next 2 element are the value for the lower rate limit (LRL), Upper rate limit (URL)
        -- 5rd element is the Amplitude of the Signal
@@ -16,7 +16,9 @@ creds2 = 'Parameter List.txt' # text file to store the Parameter List
        -- 7th element is the indicator of the A of V mode. If the ParaList[6] = 17, The Pacemaker will change into AOO & AAI. If the ParaList[6] = 33, the Pacemaker will change into VOO & VVI
        -- 8th element is the indicator to differ AOO with AAI, if the ParaList[7] = 0, the Sensing Mode will be off and the Sensing mode will be on when the ParaList[7] = 1.
        -- The next four Elements are the Parameters for the AAI or VVI, the sensitivity, refactory period, the Hysteresis, the RateSmoothing respectively
-       -- The Last Element is the PVARP
+           Note: As the refactory period is a interger between 100 to 500 which may bigger than 256, we two position to store the refactory period
+               that is ParaList[8](9th element be aware!!!!)= Senstiviy, ParaList[9,10] = Refactory Period, ParaList[11] = Hysteresis, ParaList[12] = RateSmoothing 
+       -- The Last two elements are for the PVARP: ParaList[13,14] = PVARP
 """
 
 #Value that will sent to the Pacemaker
@@ -113,7 +115,7 @@ def OFF_Mode_Modifier():
 
 def List_Init():
     global ParaList
-    ParaList = [0] * 13
+    ParaList = [0] * 15
 
 """
 @brief: AOO Mode Control Panel, user can enter or change the value of the parameter for the AOO mode
@@ -542,8 +544,13 @@ def Check_Set_AAI():
         Set_Button = Button(AAI_Check, text = "Go Back", command = AAI_Mode_Modifier)
         Set_Button.grid(row=10,column=0)
     else:
+        List_Init()
+        ParaList[0]=22
+        ParaList[1]=85
         Set_Button = Button(AAI_Check, text = "Store", command = Store_AAI)
         Set_Button.grid(row=10,column=0)
+        Pass = Button(AAI_Check, text = "Pass to Pacemaker", command = Pass_Val)
+        Pass.grid(row=10,column=1)
      
 """
 @brief: VVI Mode Control Panel, user can enter or change the value of the parameter for the VVI mode
@@ -716,8 +723,13 @@ def Check_Set_VVI():
         Set_Button = Button(VVI_Check, text = "Go Back", command = VVI_Mode_Modifier)
         Set_Button.grid(row=9,column=0)
     else:
+        List_Init()
+        ParaList[0]=22
+        ParaList[1]=85
         Set_Button = Button(VVI_Check, text = "Store", command = Store_VVI)
-        Set_Button.grid(row=9,column=0)  
+        Set_Button.grid(row=9,column=0)
+        Pass = Button(VVI_Check, text = "Pass to Pacemaker", command = Pass_Val)
+        Pass.grid(row=9,column=1)  
    
 """
 @brief:Store the parameters of AOO mode set by the user into a specific data file called "Parameter List.txt" .
@@ -735,7 +747,7 @@ def Store_AOO():
     ParaList[3] = URL_Val
     ParaList[4] = int (AtrAmp_Val*20)
     ParaList[5] = int (APW_Val*10)
-    ParaList[6] = 17
+    ParaList[6] = 1
     f = open(creds2,'w')
     for para in ParaList:
         f.write(str(para))
@@ -759,7 +771,7 @@ def Store_VOO():
     ParaList[3] = URL_Val
     ParaList[4] = int (VtrAmp_Val*20)
     ParaList[5] = int (VPW_Val*10)
-    ParaList[6] = 33
+    ParaList[6] = 0
     f = open(creds2,'w')
     for para in ParaList:
         f.write(str(para))
@@ -782,17 +794,20 @@ def Store_AAI():
     global PVARP_Val
     global Hysteresis_Val
     global RateSmoothing_Val
+    global ParaList
     ParaList[2] = LRL_Val
     ParaList[3] = URL_Val
-    ParaList[4] = AtrAmp_Val
-    ParaList[5] = APW_Val
-    ParaList[6] = 17
+    ParaList[4] = int (AtrAmp_Val*20)
+    ParaList[5] = int (APW_Val*10)
+    ParaList[6] = 1
     ParaList[7] = 1
-    ParaList[8] = AtrSen_Val
-    ParaList[9] = ARP_Val
-    ParaList[10] = Hysteresis_Val
-    ParaList[11] = RateSmoothing_Val
-    ParaList[12] = PVARP_Val
+    ParaList[8] = int (AtrSen_Val*10)
+    ParaList[9] = int (ARP_Val / 10)
+    ParaList[10] = 0
+    ParaList[11] = LRL_Val
+    ParaList[12] = RateSmoothing_Val
+    ParaList[13] = int (PVARP_Val / 10)
+    ParaList[14] = 0
     f = open(creds2,'w')
     for para in ParaList:
         f.write(str(para))
@@ -814,16 +829,18 @@ def Store_VVI():
     global VRP_Val
     global Hysteresis_Val
     global RateSmoothing_Val
+    global ParaList
     ParaList[2] = LRL_Val
     ParaList[3] = URL_Val
-    ParaList[4] = VtrAmp_Val
-    ParaList[5] = VPW_Val
-    ParaList[6] = 33
+    ParaList[4] = int (VtrAmp_Val*20)
+    ParaList[5] = int (VPW_Val*10)
+    ParaList[6] = 0
     ParaList[7] = 1
-    ParaList[8] = VtrSen_Val
-    ParaList[9] = VRP_Val
-    ParaList[10] = Hysteresis_Val
-    ParaList[11] = RateSmoothing_Val
+    ParaList[8] = int (VtrSen_Val*10)
+    ParaList[9] = int (VRP_Val /10)
+    ParaList[10] = 0
+    ParaList[11] = LRL_Val
+    ParaList[12] = RateSmoothing_Val
     f = open(creds2,'w')
     for para in ParaList:
         f.write(str(para))
