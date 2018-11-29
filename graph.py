@@ -3,7 +3,9 @@ import matplotlib.animation as animation
 from matplotlib import style
 from struct import *
 import serial
+from serial.tools import list_ports
 
+# This part of the code should be commented when this file is integrated into the DCM, as the port has already been opened.
 ser=serial.Serial(port='COM5', baudrate = 115200, bytesize=8, timeout= None)
 #style.use('fivethirtyeight')
 style.use('ggplot')
