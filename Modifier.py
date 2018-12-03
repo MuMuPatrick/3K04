@@ -102,7 +102,6 @@ def connect():
     ser.open()
     if ser.is_open:
         messagebox.showinfo("System Message", "The Device is connected")
-        print("connected")
     else:
         messagebox.showerror("System Message", "The Device is not connected")
 
@@ -114,7 +113,6 @@ def connect():
 def disconnect():
     global ser
     ser.close()
-    print("disconnected")
     
 """
 @brief: System Message Screen shows this Mode is currently not accessible.
@@ -160,7 +158,6 @@ def grab_data():
     timer1.start()
     if (xtime>190):
         timer1.cancel()
-        print("close")
         plt.close()
         xtime=0 #reset counter
 """
@@ -179,7 +176,6 @@ def animate(i):
     ax1.set_ylim(bottom=-2,top=2)
     ax1.set_title('Egram Data Visiualization')
     ax1.legend(loc='upper right')
-    print("plot out")
 
 """
 @brief: Function used to consistently grab data
@@ -203,7 +199,6 @@ def GRAPH_Mode_Modifier():
         ax1 = fig.add_subplot(1,1,1)
         grab_data()
         ani = animation.FuncAnimation(fig, animate,interval=200)
-        print("why no graph")
         '''timer = fig.canvas.new_timer(interval = 3000) #creating a timer object and setting an interval of 3000 milliseconds
         timer.add_callback(close_event)
         timer.start()'''
