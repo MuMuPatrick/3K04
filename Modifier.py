@@ -4,6 +4,11 @@ from Check_Para import *
 import os
 import serial
 from serial.tools import list_ports
+import matplotlib.pyplot as plt
+import matplotlib.animation as animation
+from matplotlib import style
+from struct import *
+import time,threading
 
 global ParaList
 creds2 = 'Parameter List.txt' # text file to store the Parameter List
@@ -21,7 +26,7 @@ creds2 = 'Parameter List.txt' # text file to store the Parameter List
        -- The Last two elements are for the PVARP: ParaList[13,14] = PVARP
 """
 
-#Value that will sent to the Pacemaker
+#Values that will send to the Pacemaker
 global LRL_Val
 global URL_Val
 global AtrAmp_Val
@@ -36,10 +41,22 @@ global PVARP_Val
 global Hysteresis_Val
 global RateSmoothing_Val
 
+global factor
 global ser
 global ports
+global timer
+global fig
+global ax1
 
+#Graphing style used to graph natural pulse
+style.use('ggplot')
 
+x_ax = [] #time
+y1_ax = [] #amplitude
+y2_ax = []
+xtime=0
+
+#serial setup variable
 ser = serial.Serial()
 """
 @brief: Check the Device Code. This window will provide the information of the Device connected to the Computer
@@ -85,6 +102,7 @@ def connect():
     ser.open()
     if ser.is_open:
         messagebox.showinfo("System Message", "The Device is connected")
+        print("connected")
     else:
         messagebox.showerror("System Message", "The Device is not connected")
 
@@ -96,6 +114,7 @@ def connect():
 def disconnect():
     global ser
     ser.close()
+    print("disconnected")
     
 """
 @brief: System Message Screen shows this Mode is currently not accessible.
@@ -117,6 +136,85 @@ def List_Init():
     global ParaList
     ParaList = [0] * 15
 
+
+"""
+@brief: Function used to consistently grab data
+@parameter: graph_data -> serial reading would be stored as byte type y in hex
+         y -> a decimal number list converted from graph_data
+         xtime -> variable used to indicate timing on x-axis of the graph 
+"""
+def grab_data():
+    global xtime
+    graph_data = ser.read(24)
+    y=unpack('ddd',graph_data)    
+    if( abs(y[2])-31 < (1e-6)):
+        x_ax.append(xtime*0.005)
+        y1_ax.append(y[0])
+        y2_ax.append(y[1])
+        xtime=xtime+1
+        if len(x_ax)>100:
+            del(x_ax[0])
+            del(y1_ax[0])
+            del(y2_ax[0])
+    timer1=threading.Timer(0.005,grab_data) #Timer to call grab_data function every 0.005s
+    timer1.start()
+    if (xtime>190):
+        timer1.cancel()
+        print("close")
+        plt.close()
+        xtime=0 #reset counter
+"""
+@brief: Function used to consistently grab data
+@object: ax1.plot -> plot(x,y,label) on the figure
+         ax1.clear() -> clear figure
+"""
+def animate(i):
+    global ax1
+    global fig
+    ax1.clear()
+    ax1.plot(x_ax,y1_ax,label='Atrl_Signal')
+    ax1.plot(x_ax,y2_ax,label='Vent_Signal')
+    ax1.set_xlabel('Time (s)')
+    ax1.set_ylabel('Amplitude (mV)')
+    ax1.set_ylim(bottom=-2,top=2)
+    ax1.set_title('Egram Data Visiualization')
+    ax1.legend(loc='upper right')
+    print("plot out")
+
+"""
+@brief: Function used to consistently grab data
+@parameter: grab_data() -> grab data from the K64F board
+         ani -> call animate function in 200 ms interval
+         xtime -> variable used to indicate timing on x-axis of the graph 
+         plt.show() -> show plotted graph on the figure
+"""
+def GRAPH_Mode_Modifier():
+    global ser
+    global xtime
+    global timer
+    global fig
+    global ax1
+    disconnect()
+    disconnect()
+    connect()
+    if ser.is_open:
+        fig = plt.figure()
+        fig.set_size_inches(11,6)
+        ax1 = fig.add_subplot(1,1,1)
+        grab_data()
+        ani = animation.FuncAnimation(fig, animate,interval=200)
+        print("why no graph")
+        '''timer = fig.canvas.new_timer(interval = 3000) #creating a timer object and setting an interval of 3000 milliseconds
+        timer.add_callback(close_event)
+        timer.start()'''
+        plt.show()
+        
+    else:
+        messagebox.showerror("System Message", "The Device is not connected")
+    disconnect()
+
+
+
 """
 @brief: AOO Mode Control Panel, user can enter or change the value of the parameter for the AOO mode
 @object: AOOModeWindow -> The AOO Mode Modifier Screen
@@ -127,7 +225,6 @@ def List_Init():
          Set_button -> Set the parameter
 @parameter: (LRL,URL,AtrAmp,APW)_Input -> The Result (in String) for Lower Rate Limit, Upper Rate Limit, Atrial Amplitude, Atrial Pulse Width respectively
 """
-
 def AOO_Mode_Modifier():
     global LRL_Input
     global URL_Input

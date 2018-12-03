@@ -263,6 +263,9 @@ def ModesControlPanel():
     
     VVIR_Button = Button(mcp, text='VVIR', command=OFF_Mode_Modifier) 
     VVIR_Button.grid(row=7,column=1)
+
+    GRAPH_Button = Button(mcp, text='GRAPH', command=GRAPH_Mode_Modifier)
+    GRAPH_Button.grid(row=7,column=2)
     
     spL = Label(mcp, text = "")
     spL.grid(row=8,columnspan=1,column=2)
