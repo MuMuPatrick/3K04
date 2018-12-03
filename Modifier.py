@@ -136,7 +136,7 @@ def List_Init():
 
 
 """
-@brief: Function used to consistently grab data
+@brief: Function used to consistently grab data in each 5 ms time interval
 @parameter: graph_data -> serial reading would be stored as byte type y in hex
          y -> a decimal number list converted from graph_data
          xtime -> variable used to indicate timing on x-axis of the graph 
@@ -161,7 +161,7 @@ def grab_data():
         plt.close()
         xtime=0 #reset counter
 """
-@brief: Function used to consistently grab data
+@brief: Function used to graph out collected data
 @object: ax1.plot -> plot(x,y,label) on the figure
          ax1.clear() -> clear figure
 """
@@ -178,7 +178,7 @@ def animate(i):
     ax1.legend(loc='upper right')
 
 """
-@brief: Function used to consistently grab data
+@brief: Function used to consistently graph natural pacing
 @parameter: grab_data() -> grab data from the K64F board
          ani -> call animate function in 200 ms interval
          xtime -> variable used to indicate timing on x-axis of the graph 
